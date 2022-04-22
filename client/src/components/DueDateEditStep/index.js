@@ -1,3 +1,3 @@
-import DueDateEditStep from './DueDateEditStep';
+import DueDateEditStep from './DueDateEditStep'
 
-export default DueDateEditStep;
+export default DueDateEditStep

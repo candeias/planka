@@ -1,4 +1,4 @@
-import dateFns from 'date-fns/locale/de';
+import dateFns from 'date-fns/locale/de'
 
 export default {
   dateFns,
@@ -25,15 +25,20 @@ export default {
         'Alle Änderungen werden automatisch gespeichert,<br />sobald die Verbindung wiederhergestellt wurde.',
       areYouSureYouWantToDeleteThisAttachment:
         'Sind Sie sicher, dass Sie diesen Anhang löschen möchten?',
-      areYouSureYouWantToDeleteThisBoard: 'Sind Sie sicher, dass Sie dieses Board löschen möchten?',
-      areYouSureYouWantToDeleteThisCard: 'Sind Sie sicher, dass Sie diese Karte löschen möchten?',
+      areYouSureYouWantToDeleteThisBoard:
+        'Sind Sie sicher, dass Sie dieses Board löschen möchten?',
+      areYouSureYouWantToDeleteThisCard:
+        'Sind Sie sicher, dass Sie diese Karte löschen möchten?',
       areYouSureYouWantToDeleteThisComment:
         'Sind Sie sicher, dass Sie diesen Kommentar löschen möchten?',
-      areYouSureYouWantToDeleteThisLabel: 'Sind Sie sicher, dass Sie dieses Label löschen möchten?',
-      areYouSureYouWantToDeleteThisList: 'Sind Sie sicher, dass Sie diese Liste löschen möchten?',
+      areYouSureYouWantToDeleteThisLabel:
+        'Sind Sie sicher, dass Sie dieses Label löschen möchten?',
+      areYouSureYouWantToDeleteThisList:
+        'Sind Sie sicher, dass Sie diese Liste löschen möchten?',
       areYouSureYouWantToDeleteThisProject:
         'Sind Sie sicher, dass Sie dieses Projekt löschen möchten?',
-      areYouSureYouWantToDeleteThisTask: 'Sind Sie sicher, dass Sie diese Aufgabe löschen möchten?',
+      areYouSureYouWantToDeleteThisTask:
+        'Sind Sie sicher, dass Sie diese Aufgabe löschen möchten?',
       areYouSureYouWantToDeleteThisUser:
         'Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?',
       areYouSureYouWantToRemoveThisMemberFromProject:
@@ -49,7 +54,8 @@ export default {
       color: 'Farbe',
       createBoard_title: 'Board erstellen',
       createLabel_title: 'Label erstellen',
-      createNewOneOrSelectExistingOne: 'Ein Neues erstellen, oder <br />ein Bestehendes auswählen',
+      createNewOneOrSelectExistingOne:
+        'Ein Neues erstellen, oder <br />ein Bestehendes auswählen',
       createProject_title: 'Projekt erstellen',
       createTextFile_title: 'Textdatei erstellen',
       currentPassword: 'Derzeitiges Password',
@@ -119,14 +125,16 @@ export default {
       selectList: 'Liste auswählen',
       selectProject: 'Projekt auswählen',
       settings: 'Einstellungen',
-      subscribeToMyOwnCardsByDefault: 'Standardmäßig meine eigenen Karten abonnieren',
+      subscribeToMyOwnCardsByDefault:
+        'Standardmäßig meine eigenen Karten abonnieren',
       taskActions_title: 'Aufgabenaktionen',
       tasks: 'Aufgaben',
       time: 'Zeit',
       timer: 'Timer',
       title: 'Titel',
       userActions_title: 'Benutzerraktionen',
-      userAddedThisCardToList: '<0>{{user}}</0><1> hat diese Karte hinzugefügt zu {{list}}</1>',
+      userAddedThisCardToList:
+        '<0>{{user}}</0><1> hat diese Karte hinzugefügt zu {{list}}</1>',
       userLeftNewCommentToCard:
         '{{user}} hat einen neuen Kommentar verfasst «{{comment}}» to <2>{{card}}</2>',
       userMovedCardFromListToList:
@@ -200,4 +208,4 @@ export default {
       uploadNewImage: 'Neues Bild hochladen',
     },
   },
-};
+}

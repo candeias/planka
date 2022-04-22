@@ -1,27 +1,29 @@
 const mergeRecords = (target, ...sources) => {
   if (sources.length === 0) {
-    return target;
+    return target
   }
 
-  const source = sources.shift();
+  const source = sources.shift()
 
   if (!target || !source) {
-    return mergeRecords(target || source, ...sources);
+    return mergeRecords(target || source, ...sources)
   }
 
-  const nextTarget = [...target];
+  const nextTarget = [...target]
 
   source.forEach((sourceRecord) => {
-    const index = nextTarget.findIndex((targetRecord) => targetRecord.id === sourceRecord.id);
+    const index = nextTarget.findIndex(
+      (targetRecord) => targetRecord.id === sourceRecord.id,
+    )
 
     if (index >= 0) {
-      Object.assign(nextTarget[index], sourceRecord);
+      Object.assign(nextTarget[index], sourceRecord)
     } else {
-      nextTarget.push(sourceRecord);
+      nextTarget.push(sourceRecord)
     }
-  });
+  })
 
-  return mergeRecords(nextTarget, ...sources);
-};
+  return mergeRecords(nextTarget, ...sources)
+}
 
-export default mergeRecords;
+export default mergeRecords

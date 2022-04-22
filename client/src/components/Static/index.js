@@ -1,3 +1,3 @@
-import Static from './Static';
+import Static from './Static'
 
-export default Static;
+export default Static

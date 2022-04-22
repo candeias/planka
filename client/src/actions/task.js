@@ -1,11 +1,11 @@
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 export const createTask = (task) => ({
   type: ActionTypes.TASK_CREATE,
   payload: {
     task,
   },
-});
+})
 
 createTask.success = (localId, task) => ({
   type: ActionTypes.TASK_CREATE__SUCCESS,
@@ -13,7 +13,7 @@ createTask.success = (localId, task) => ({
     localId,
     task,
   },
-});
+})
 
 createTask.failure = (localId, error) => ({
   type: ActionTypes.TASK_CREATE__FAILURE,
@@ -21,14 +21,14 @@ createTask.failure = (localId, error) => ({
     localId,
     error,
   },
-});
+})
 
 export const handleTaskCreate = (task) => ({
   type: ActionTypes.TASK_CREATE_HANDLE,
   payload: {
     task,
   },
-});
+})
 
 export const updateTask = (id, data) => ({
   type: ActionTypes.TASK_UPDATE,
@@ -36,14 +36,14 @@ export const updateTask = (id, data) => ({
     id,
     data,
   },
-});
+})
 
 updateTask.success = (task) => ({
   type: ActionTypes.TASK_UPDATE__SUCCESS,
   payload: {
     task,
   },
-});
+})
 
 updateTask.failure = (id, error) => ({
   type: ActionTypes.TASK_UPDATE__FAILURE,
@@ -51,28 +51,28 @@ updateTask.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
 export const handleTaskUpdate = (task) => ({
   type: ActionTypes.TASK_UPDATE_HANDLE,
   payload: {
     task,
   },
-});
+})
 
 export const deleteTask = (id) => ({
   type: ActionTypes.TASK_DELETE,
   payload: {
     id,
   },
-});
+})
 
 deleteTask.success = (task) => ({
   type: ActionTypes.TASK_DELETE__SUCCESS,
   payload: {
     task,
   },
-});
+})
 
 deleteTask.failure = (id, error) => ({
   type: ActionTypes.TASK_DELETE__FAILURE,
@@ -80,11 +80,11 @@ deleteTask.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
 export const handleTaskDelete = (task) => ({
   type: ActionTypes.TASK_DELETE_HANDLE,
   payload: {
     task,
   },
-});
+})

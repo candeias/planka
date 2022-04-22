@@ -1,9 +1,9 @@
-import { Model, attr, fk } from 'redux-orm';
+import { Model, attr, fk } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
-export default class extends Model {
-  static modelName = 'Notification';
+export class Notification extends Model {
+  static modelName = 'Notification'
 
   static fields = {
     id: attr(),
@@ -25,51 +25,51 @@ export default class extends Model {
       as: 'card',
       relatedName: 'notifications',
     }),
-  };
+  }
 
-  static reducer({ type, payload }, Notification) {
+  static reducer({ type, payload }, sNotification) {
     switch (type) {
       case ActionTypes.LOCATION_CHANGE_HANDLE:
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.notifications) {
           payload.notifications.forEach((notification) => {
-            Notification.withId(notification.id).deleteWithRelated();
-          });
+            sNotification.withId(notification.id).deleteWithRelated()
+          })
         }
 
-        break;
+        break
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
-        Notification.all().delete();
+        sNotification.all().delete()
 
         payload.notifications.forEach((notification) => {
-          Notification.upsert(notification);
-        });
+          sNotification.upsert(notification)
+        })
 
-        break;
+        break
       case ActionTypes.CORE_INITIALIZE:
         payload.notifications.forEach((notification) => {
-          Notification.upsert(notification);
-        });
+          sNotification.upsert(notification)
+        })
 
-        break;
+        break
       case ActionTypes.NOTIFICATION_CREATE_HANDLE:
-        Notification.upsert(payload.notification);
+        sNotification.upsert(payload.notification)
 
-        break;
+        break
       case ActionTypes.NOTIFICATION_DELETE:
-        Notification.withId(payload.id).deleteWithRelated();
+        sNotification.withId(payload.id).deleteWithRelated()
 
-        break;
+        break
       case ActionTypes.NOTIFICATION_DELETE__SUCCESS:
       case ActionTypes.NOTIFICATION_DELETE_HANDLE: {
-        const notificationModel = Notification.withId(payload.notification.id);
+        const notificationModel = sNotification.withId(payload.notification.id)
 
         if (notificationModel) {
-          notificationModel.deleteWithRelated();
+          notificationModel.deleteWithRelated()
         }
 
-        break;
+        break
       }
       default:
     }
@@ -77,12 +77,12 @@ export default class extends Model {
 
   deleteRelated() {
     if (this.action && !this.action.isInCard) {
-      this.action.delete();
+      this.action.delete()
     }
   }
 
   deleteWithRelated() {
-    this.deleteRelated();
-    this.delete();
+    this.deleteRelated()
+    this.delete()
   }
 }

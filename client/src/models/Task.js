@@ -1,9 +1,9 @@
-import { Model, attr, fk } from 'redux-orm';
+import { Model, attr, fk } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
-export default class extends Model {
-  static modelName = 'Task';
+export class Task extends Model {
+  static modelName = 'Task'
 
   static fields = {
     id: attr(),
@@ -16,9 +16,9 @@ export default class extends Model {
       as: 'card',
       relatedName: 'tasks',
     }),
-  };
+  }
 
-  static reducer({ type, payload }, Task) {
+  static reducer({ type, payload }, sTask) {
     switch (type) {
       case ActionTypes.LOCATION_CHANGE_HANDLE:
       case ActionTypes.CORE_INITIALIZE:
@@ -26,56 +26,56 @@ export default class extends Model {
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.tasks) {
           payload.tasks.forEach((task) => {
-            Task.upsert(task);
-          });
+            sTask.upsert(task)
+          })
         }
 
-        break;
+        break
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
-        Task.all().delete();
+        sTask.all().delete()
 
         if (payload.tasks) {
           payload.tasks.forEach((task) => {
-            Task.upsert(task);
-          });
+            sTask.upsert(task)
+          })
         }
 
-        break;
+        break
       case ActionTypes.BOARD_FETCH__SUCCESS:
         payload.tasks.forEach((task) => {
-          Task.upsert(task);
-        });
+          sTask.upsert(task)
+        })
 
-        break;
+        break
       case ActionTypes.TASK_CREATE:
       case ActionTypes.TASK_CREATE_HANDLE:
       case ActionTypes.TASK_UPDATE__SUCCESS:
       case ActionTypes.TASK_UPDATE_HANDLE:
-        Task.upsert(payload.task);
+        sTask.upsert(payload.task)
 
-        break;
+        break
       case ActionTypes.TASK_CREATE__SUCCESS:
-        Task.withId(payload.localId).delete();
-        Task.upsert(payload.task);
+        sTask.withId(payload.localId).delete()
+        sTask.upsert(payload.task)
 
-        break;
+        break
       case ActionTypes.TASK_UPDATE:
-        Task.withId(payload.id).update(payload.data);
+        sTask.withId(payload.id).update(payload.data)
 
-        break;
+        break
       case ActionTypes.TASK_DELETE:
-        Task.withId(payload.id).delete();
+        sTask.withId(payload.id).delete()
 
-        break;
+        break
       case ActionTypes.TASK_DELETE__SUCCESS:
       case ActionTypes.TASK_DELETE_HANDLE: {
-        const taskModel = Task.withId(payload.task.id);
+        const taskModel = sTask.withId(payload.task.id)
 
         if (taskModel) {
-          taskModel.delete();
+          taskModel.delete()
         }
 
-        break;
+        break
       }
       default:
     }

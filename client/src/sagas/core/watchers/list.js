@@ -1,4 +1,4 @@
-import { all, takeEvery } from 'redux-saga/effects';
+import { all, takeEvery } from 'redux-saga/effects'
 
 import {
   createListInCurrentBoardService,
@@ -8,13 +8,14 @@ import {
   handleListUpdateService,
   moveListService,
   updateListService,
-} from '../services';
-import EntryActionTypes from '../../../constants/EntryActionTypes';
+} from '../services'
+import EntryActionTypes from '../../../constants/EntryActionTypes'
 
 export default function* listWatchers() {
   yield all([
-    takeEvery(EntryActionTypes.LIST_IN_CURRENT_BOARD_CREATE, ({ payload: { data } }) =>
-      createListInCurrentBoardService(data),
+    takeEvery(
+      EntryActionTypes.LIST_IN_CURRENT_BOARD_CREATE,
+      ({ payload: { data } }) => createListInCurrentBoardService(data),
     ),
     takeEvery(EntryActionTypes.LIST_CREATE_HANDLE, ({ payload: { list } }) =>
       handleListCreateService(list),
@@ -28,9 +29,11 @@ export default function* listWatchers() {
     takeEvery(EntryActionTypes.LIST_MOVE, ({ payload: { id, index } }) =>
       moveListService(id, index),
     ),
-    takeEvery(EntryActionTypes.LIST_DELETE, ({ payload: { id } }) => deleteListService(id)),
+    takeEvery(EntryActionTypes.LIST_DELETE, ({ payload: { id } }) =>
+      deleteListService(id),
+    ),
     takeEvery(EntryActionTypes.LIST_DELETE_HANDLE, ({ payload: { list } }) =>
       handleListDeleteService(list),
     ),
-  ]);
+  ])
 }

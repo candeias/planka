@@ -1,18 +1,18 @@
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects'
 
-import { fetchCoreRequest } from '../requests';
-import { currentUserIdSelector, pathSelector } from '../../../selectors';
-import { handleSocketDisconnect, handleSocketReconnect } from '../../../actions';
+import { fetchCoreRequest } from '../requests'
+import { currentUserIdSelector, pathSelector } from '../../../selectors'
+import { handleSocketDisconnect, handleSocketReconnect } from '../../../actions'
 
 export function* handleSocketDisconnectService() {
-  yield put(handleSocketDisconnect());
+  yield put(handleSocketDisconnect())
 }
 
 export function* handleSocketReconnectService() {
-  const currentUserId = yield select(currentUserIdSelector);
-  const { boardId } = yield select(pathSelector);
+  const currentUserId = yield select(currentUserIdSelector)
+  const { boardId } = yield select(pathSelector)
 
-  yield put(handleSocketReconnect.fetchCore(currentUserId, boardId));
+  yield put(handleSocketReconnect.fetchCore(currentUserId, boardId))
 
   const {
     user,
@@ -31,7 +31,7 @@ export function* handleSocketReconnectService() {
     attachments,
     actions,
     notifications,
-  } = yield call(fetchCoreRequest); // TODO: handle error
+  } = yield call(fetchCoreRequest) // TODO: handle error
 
   yield put(
     handleSocketReconnect(
@@ -52,5 +52,5 @@ export function* handleSocketReconnectService() {
       actions,
       notifications,
     ),
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import dateFns from 'date-fns/locale/pl';
+import dateFns from 'date-fns/locale/pl'
 
 export default {
   dateFns,
@@ -23,15 +23,24 @@ export default {
       all: 'Wszyscy',
       allChangesWillBeAutomaticallySavedAfterConnectionRestored:
         'Wszystkie zmiany zostaną automatycznie zapisane<br />po przywróceniu połączenia',
-      areYouSureYouWantToDeleteThisAttachment: 'Jesteś pewien że chcesz usunąć ten załącznik?',
-      areYouSureYouWantToDeleteThisBoard: 'Jesteś pewien że chcesz usunąć tę tablicę?',
-      areYouSureYouWantToDeleteThisCard: 'Jesteś pewien że chcesz usunąć tę kartę?',
-      areYouSureYouWantToDeleteThisComment: 'Jesteś pewien że chcesz usunąć ten komentarz?',
-      areYouSureYouWantToDeleteThisLabel: 'Jesteś pewien że chcesz usunąć to oznaczenie?',
-      areYouSureYouWantToDeleteThisList: 'Jesteś pewien że chcesz usunąć tę listę?',
-      areYouSureYouWantToDeleteThisProject: 'Jesteś pewien że chcesz usunąć ten projekt?',
-      areYouSureYouWantToDeleteThisTask: 'Jesteś pewien że chcesz usunąć to zadanie?',
-      areYouSureYouWantToDeleteThisUser: 'Jesteś pewien że chcesz usunąć tego użytkownika?',
+      areYouSureYouWantToDeleteThisAttachment:
+        'Jesteś pewien że chcesz usunąć ten załącznik?',
+      areYouSureYouWantToDeleteThisBoard:
+        'Jesteś pewien że chcesz usunąć tę tablicę?',
+      areYouSureYouWantToDeleteThisCard:
+        'Jesteś pewien że chcesz usunąć tę kartę?',
+      areYouSureYouWantToDeleteThisComment:
+        'Jesteś pewien że chcesz usunąć ten komentarz?',
+      areYouSureYouWantToDeleteThisLabel:
+        'Jesteś pewien że chcesz usunąć to oznaczenie?',
+      areYouSureYouWantToDeleteThisList:
+        'Jesteś pewien że chcesz usunąć tę listę?',
+      areYouSureYouWantToDeleteThisProject:
+        'Jesteś pewien że chcesz usunąć ten projekt?',
+      areYouSureYouWantToDeleteThisTask:
+        'Jesteś pewien że chcesz usunąć to zadanie?',
+      areYouSureYouWantToDeleteThisUser:
+        'Jesteś pewien że chcesz usunąć tego użytkownika?',
       areYouSureYouWantToRemoveThisMemberFromProject:
         'Jesteś pewien że chcesz usunąć tego członka z projektu?',
       attachment: 'Załącznik',
@@ -45,7 +54,8 @@ export default {
       color: 'Kolor',
       createBoard_title: 'Utwórz Tablicę',
       createLabel_title: 'Utwórz Oznaczenie',
-      createNewOneOrSelectExistingOne: 'Utwórz nowy lub wybierz<br />istniejący',
+      createNewOneOrSelectExistingOne:
+        'Utwórz nowy lub wybierz<br />istniejący',
       createProject_title: 'Utwórz Projekt',
       createTextFile_title: 'Utwórz Plik Tekstowy',
       currentPassword: 'Aktualne hasło',
@@ -122,8 +132,10 @@ export default {
       timer: 'Odliczanie',
       title: 'Tytuł',
       userActions_title: 'Akcje użytkownika',
-      userAddedThisCardToList: '<0>{{user}}</0><1> dodał tę kartę w {{list}}</1>',
-      userLeftNewCommentToCard: '{{user}} zamieścił nowy komentarz «{{comment}}» w <2>{{card}}</2>',
+      userAddedThisCardToList:
+        '<0>{{user}}</0><1> dodał tę kartę w {{list}}</1>',
+      userLeftNewCommentToCard:
+        '{{user}} zamieścił nowy komentarz «{{comment}}» w <2>{{card}}</2>',
       userMovedCardFromListToList:
         '{{user}} przeniósł <2>{{card}}</2> z {{fromList}} do {{toList}}',
       userMovedThisCardFromListToList:
@@ -195,4 +207,4 @@ export default {
       uploadNewImage: 'Wgraj nowy obraz',
     },
   },
-};
+}

@@ -1,3 +1,3 @@
-import TimerEditStep from './TimerEditStep';
+import TimerEditStep from './TimerEditStep'
 
-export default TimerEditStep;
+export default TimerEditStep

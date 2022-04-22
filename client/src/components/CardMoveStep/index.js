@@ -1,3 +1,3 @@
-import CardMoveStep from './CardMoveStep';
+import CardMoveStep from './CardMoveStep'
 
-export default CardMoveStep;
+export default CardMoveStep

@@ -1,11 +1,11 @@
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 export const createCard = (card) => ({
   type: ActionTypes.CARD_CREATE,
   payload: {
     card,
   },
-});
+})
 
 createCard.success = (localId, card) => ({
   type: ActionTypes.CARD_CREATE__SUCCESS,
@@ -13,7 +13,7 @@ createCard.success = (localId, card) => ({
     localId,
     card,
   },
-});
+})
 
 createCard.failure = (localId, error) => ({
   type: ActionTypes.CARD_CREATE__FAILURE,
@@ -21,14 +21,14 @@ createCard.failure = (localId, error) => ({
     localId,
     error,
   },
-});
+})
 
 export const handleCardCreate = (card) => ({
   type: ActionTypes.CARD_CREATE_HANDLE,
   payload: {
     card,
   },
-});
+})
 
 export const updateCard = (id, data) => ({
   type: ActionTypes.CARD_UPDATE,
@@ -36,14 +36,14 @@ export const updateCard = (id, data) => ({
     id,
     data,
   },
-});
+})
 
 updateCard.success = (card) => ({
   type: ActionTypes.CARD_UPDATE__SUCCESS,
   payload: {
     card,
   },
-});
+})
 
 updateCard.failure = (id, error) => ({
   type: ActionTypes.CARD_UPDATE__FAILURE,
@@ -51,28 +51,28 @@ updateCard.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
 export const handleCardUpdate = (card) => ({
   type: ActionTypes.CARD_UPDATE_HANDLE,
   payload: {
     card,
   },
-});
+})
 
 export const deleteCard = (id) => ({
   type: ActionTypes.CARD_DELETE,
   payload: {
     id,
   },
-});
+})
 
 deleteCard.success = (card) => ({
   type: ActionTypes.CARD_DELETE__SUCCESS,
   payload: {
     card,
   },
-});
+})
 
 deleteCard.failure = (id, error) => ({
   type: ActionTypes.CARD_DELETE__FAILURE,
@@ -80,11 +80,11 @@ deleteCard.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
 export const handleCardDelete = (card) => ({
   type: ActionTypes.CARD_DELETE_HANDLE,
   payload: {
     card,
   },
-});
+})

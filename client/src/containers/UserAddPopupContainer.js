@@ -1,8 +1,8 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import { clearUserCreateError, createUser } from '../actions/entry';
-import UserAddPopup from '../components/UserAddPopup';
+import { clearUserCreateError, createUser } from '../actions/entry'
+import UserAddPopup from '../components/UserAddPopup'
 
 const mapStateToProps = ({
   ui: {
@@ -12,7 +12,7 @@ const mapStateToProps = ({
   defaultData,
   isSubmitting,
   error,
-});
+})
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch) =>
       onMessageDismiss: clearUserCreateError,
     },
     dispatch,
-  );
+  )
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserAddPopup);
+export default connect(mapStateToProps, mapDispatchToProps)(UserAddPopup)

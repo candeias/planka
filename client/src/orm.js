@@ -1,4 +1,4 @@
-import { ORM } from 'redux-orm';
+import { ORM } from 'redux-orm'
 
 import {
   Action,
@@ -13,11 +13,11 @@ import {
   ProjectManager,
   Task,
   User,
-} from './models';
+} from './models'
 
 const orm = new ORM({
   stateSelector: (state) => state.orm,
-});
+})
 
 orm.register(
   User,
@@ -32,6 +32,6 @@ orm.register(
   Attachment,
   Action,
   Notification,
-);
+)
 
-export default orm;
+export default orm

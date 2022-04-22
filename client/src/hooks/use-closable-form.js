@@ -1,29 +1,29 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react'
 
 export default (close, isOpened = true) => {
-  const isClosable = useRef(null);
+  const isClosable = useRef(null)
 
   const handleFieldBlur = useCallback(() => {
     if (isClosable.current) {
-      close();
+      close()
     }
-  }, [close]);
+  }, [close])
 
   const handleControlMouseOver = useCallback(() => {
-    isClosable.current = false;
-  }, []);
+    isClosable.current = false
+  }, [])
 
   const handleControlMouseOut = useCallback(() => {
-    isClosable.current = true;
-  }, []);
+    isClosable.current = true
+  }, [])
 
   useEffect(() => {
     if (isOpened) {
-      isClosable.current = true;
+      isClosable.current = true
     } else {
-      isClosable.current = null;
+      isClosable.current = null
     }
-  }, [isOpened]);
+  }, [isOpened])
 
-  return [handleFieldBlur, handleControlMouseOver, handleControlMouseOut];
-};
+  return [handleFieldBlur, handleControlMouseOver, handleControlMouseOut]
+}

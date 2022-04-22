@@ -1,17 +1,17 @@
-import { fetch } from 'whatwg-fetch';
+import { fetch } from 'whatwg-fetch'
 
-import Config from '../constants/Config';
+import Config from '../constants/Config'
 
-const http = {};
+const http = {}
 
 // TODO: add all methods
-['POST'].forEach((method) => {
+;['POST'].forEach((method) => {
   http[method.toLowerCase()] = (url, data, headers) => {
     const formData = Object.keys(data).reduce((result, key) => {
-      result.append(key, data[key]);
+      result.append(key, data[key])
 
-      return result;
-    }, new FormData());
+      return result
+    }, new FormData())
 
     return fetch(`${Config.SERVER_BASE_URL}/api${url}`, {
       method,
@@ -26,12 +26,12 @@ const http = {};
       )
       .then(({ body, isError }) => {
         if (isError) {
-          throw body;
+          throw body
         }
 
-        return body;
-      });
-  };
-});
+        return body
+      })
+  }
+})
 
-export default http;
+export default http

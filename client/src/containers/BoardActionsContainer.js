@@ -1,5 +1,5 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import {
   filterLabelsForCurrentBoardSelector,
@@ -8,7 +8,7 @@ import {
   labelsForCurrentBoardSelector,
   membershipsForCurrentBoardSelector,
   usersSelector,
-} from '../selectors';
+} from '../selectors'
 import {
   addLabelToFilterInCurrentBoard,
   addUserToFilterInCurrentBoard,
@@ -19,16 +19,17 @@ import {
   removeLabelFromFilterInCurrentBoard,
   removeUserFromFilterInCurrentBoard,
   updateLabel,
-} from '../actions/entry';
-import BoardActions from '../components/BoardActions';
+} from '../actions/entry'
+import BoardActions from '../components/BoardActions'
 
 const mapStateToProps = (state) => {
-  const allUsers = usersSelector(state);
-  const isCurrentUserManager = isCurrentUserManagerForCurrentProjectSelector(state);
-  const memberships = membershipsForCurrentBoardSelector(state);
-  const labels = labelsForCurrentBoardSelector(state);
-  const filterUsers = filterUsersForCurrentBoardSelector(state);
-  const filterLabels = filterLabelsForCurrentBoardSelector(state);
+  const allUsers = usersSelector(state)
+  const isCurrentUserManager =
+    isCurrentUserManagerForCurrentProjectSelector(state)
+  const memberships = membershipsForCurrentBoardSelector(state)
+  const labels = labelsForCurrentBoardSelector(state)
+  const filterUsers = filterUsersForCurrentBoardSelector(state)
+  const filterLabels = filterLabelsForCurrentBoardSelector(state)
 
   return {
     memberships,
@@ -37,8 +38,8 @@ const mapStateToProps = (state) => {
     filterLabels,
     allUsers,
     canEditMemberships: isCurrentUserManager,
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
@@ -54,6 +55,6 @@ const mapDispatchToProps = (dispatch) =>
       onLabelDelete: deleteLabel,
     },
     dispatch,
-  );
+  )
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoardActions);
+export default connect(mapStateToProps, mapDispatchToProps)(BoardActions)

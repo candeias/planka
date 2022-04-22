@@ -1,11 +1,11 @@
-import socket from './socket';
-import { transformCard } from './cards';
-import { transformAttachment } from './attachments';
+import socket from './socket'
+import { transformCard } from './cards'
+import { transformAttachment } from './attachments'
 
 /* Actions */
 
 const createBoard = (projectId, data, headers) =>
-  socket.post(`/projects/${projectId}/boards`, data, headers);
+  socket.post(`/projects/${projectId}/boards`, data, headers)
 
 const getBoard = (id, headers) =>
   socket.get(`/boards/${id}`, undefined, headers).then((body) => ({
@@ -15,15 +15,17 @@ const getBoard = (id, headers) =>
       cards: body.included.cards.map(transformCard),
       attachments: body.included.attachments.map(transformAttachment),
     },
-  }));
+  }))
 
-const updateBoard = (id, data, headers) => socket.patch(`/boards/${id}`, data, headers);
+const updateBoard = (id, data, headers) =>
+  socket.patch(`/boards/${id}`, data, headers)
 
-const deleteBoard = (id, headers) => socket.delete(`/boards/${id}`, undefined, headers);
+const deleteBoard = (id, headers) =>
+  socket.delete(`/boards/${id}`, undefined, headers)
 
 export default {
   createBoard,
   getBoard,
   updateBoard,
   deleteBoard,
-};
+}

@@ -1,3 +1,3 @@
-import Fixed from './Fixed';
+import Fixed from './Fixed'
 
-export default Fixed;
+export default Fixed

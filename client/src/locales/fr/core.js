@@ -1,4 +1,4 @@
-import dateFns from 'date-fns/locale/fr';
+import dateFns from 'date-fns/locale/fr'
 
 export default {
   dateFns,
@@ -23,15 +23,24 @@ export default {
       all: 'Tout',
       allChangesWillBeAutomaticallySavedAfterConnectionRestored:
         'Toutes les modifications seront automatiquement enregistrées <br /> une fois la connexion rétablie',
-      areYouSureYouWantToDeleteThisAttachment: 'Voulez-vous vraiment supprimer cette pièce jointe?',
-      areYouSureYouWantToDeleteThisBoard: 'Êtes-vous sûr de vouloir supprimer ce forum?',
-      areYouSureYouWantToDeleteThisCard: 'Voulez-vous vraiment supprimer cette carte?',
-      areYouSureYouWantToDeleteThisComment: 'Êtes-vous sûr de vouloir supprimer ce commentaire?',
-      areYouSureYouWantToDeleteThisLabel: 'Voulez-vous vraiment supprimer ce libellé?',
-      areYouSureYouWantToDeleteThisList: 'Êtes-vous sûr de vouloir supprimer cette liste?',
-      areYouSureYouWantToDeleteThisProject: 'Êtes-vous sûr de vouloir supprimer ce projet?',
-      areYouSureYouWantToDeleteThisTask: 'Êtes-vous sûr de vouloir supprimer cette tâche?',
-      areYouSureYouWantToDeleteThisUser: 'Êtes-vous sûr de vouloir supprimer cet utilisateur?',
+      areYouSureYouWantToDeleteThisAttachment:
+        'Voulez-vous vraiment supprimer cette pièce jointe?',
+      areYouSureYouWantToDeleteThisBoard:
+        'Êtes-vous sûr de vouloir supprimer ce forum?',
+      areYouSureYouWantToDeleteThisCard:
+        'Voulez-vous vraiment supprimer cette carte?',
+      areYouSureYouWantToDeleteThisComment:
+        'Êtes-vous sûr de vouloir supprimer ce commentaire?',
+      areYouSureYouWantToDeleteThisLabel:
+        'Voulez-vous vraiment supprimer ce libellé?',
+      areYouSureYouWantToDeleteThisList:
+        'Êtes-vous sûr de vouloir supprimer cette liste?',
+      areYouSureYouWantToDeleteThisProject:
+        'Êtes-vous sûr de vouloir supprimer ce projet?',
+      areYouSureYouWantToDeleteThisTask:
+        'Êtes-vous sûr de vouloir supprimer cette tâche?',
+      areYouSureYouWantToDeleteThisUser:
+        'Êtes-vous sûr de vouloir supprimer cet utilisateur?',
       areYouSureYouWantToRemoveThisMemberFromProject:
         'Êtes-vous sûr de vouloir supprimer ce membre du projet?',
       attachment: 'Attachement',
@@ -45,7 +54,8 @@ export default {
       color: 'Couleur',
       createBoard_title: 'Créer un tableau',
       createLabel_title: 'Créer une étiquette',
-      createNewOneOrSelectExistingOne: 'Créez-en un nouveau ou sélectionnez <br /> un existant',
+      createNewOneOrSelectExistingOne:
+        'Créez-en un nouveau ou sélectionnez <br /> un existant',
       createProject_title: 'Créer un projet',
       createTextFile_title: 'Créer un fichier texte',
       currentPassword: 'Mot de passe actuel',
@@ -114,14 +124,16 @@ export default {
       selectList: 'Sélectionner une liste',
       selectProject: 'Sélectionner un projet',
       settings: 'Réglages',
-      subscribeToMyOwnCardsByDefault: 'Abonnez-vous à mes propres cartes par défaut',
+      subscribeToMyOwnCardsByDefault:
+        'Abonnez-vous à mes propres cartes par défaut',
       taskActions_title: 'Actions de tâche',
       tasks: 'Tâches',
       time: 'Temps',
       timer: 'Minuteur',
       title: 'Titre',
       userActions_title: "Actions de l'utilisateur",
-      userAddedThisCardToList: '<0> {{user}} </0> <1> a ajouté cette carte à {{list}} </1>',
+      userAddedThisCardToList:
+        '<0> {{user}} </0> <1> a ajouté cette carte à {{list}} </1>',
       userLeftNewCommentToCard:
         '{{user}} a laissé un nouveau commentaire {{comment}} à <2> {{card}} </2>',
       userMovedCardFromListToList:
@@ -185,7 +197,8 @@ export default {
       removeFromProject: 'Supprimer du projet',
       removeMember: 'Supprimer le membre',
       save: 'Sauvegarder',
-      showAllAttachments: 'Afficher toutes les pièces jointes ({{hidden}} masquées)',
+      showAllAttachments:
+        'Afficher toutes les pièces jointes ({{hidden}} masquées)',
       showFewerAttachments: 'Afficher moins de pièces jointes',
       start: 'Début',
       stop: 'Arrêter',
@@ -195,4 +208,4 @@ export default {
       uploadNewImage: 'Télécharger une nouvelle image',
     },
   },
-};
+}

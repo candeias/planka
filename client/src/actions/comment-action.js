@@ -1,11 +1,11 @@
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 export const createCommentAction = (action) => ({
   type: ActionTypes.COMMENT_ACTION_CREATE,
   payload: {
     action,
   },
-});
+})
 
 createCommentAction.success = (localId, action) => ({
   type: ActionTypes.COMMENT_ACTION_CREATE__SUCCESS,
@@ -13,7 +13,7 @@ createCommentAction.success = (localId, action) => ({
     localId,
     action,
   },
-});
+})
 
 createCommentAction.failure = (localId, error) => ({
   type: ActionTypes.COMMENT_ACTION_CREATE__FAILURE,
@@ -21,7 +21,7 @@ createCommentAction.failure = (localId, error) => ({
     localId,
     error,
   },
-});
+})
 
 export const updateCommentAction = (id, data) => ({
   type: ActionTypes.COMMENT_ACTION_UPDATE,
@@ -29,14 +29,14 @@ export const updateCommentAction = (id, data) => ({
     id,
     data,
   },
-});
+})
 
 updateCommentAction.success = (action) => ({
   type: ActionTypes.COMMENT_ACTION_UPDATE__SUCCESS,
   payload: {
     action,
   },
-});
+})
 
 updateCommentAction.failure = (id, error) => ({
   type: ActionTypes.COMMENT_ACTION_UPDATE__FAILURE,
@@ -44,21 +44,21 @@ updateCommentAction.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
 export const deleteCommentAction = (id) => ({
   type: ActionTypes.COMMENT_ACTION_DELETE,
   payload: {
     id,
   },
-});
+})
 
 deleteCommentAction.success = (action) => ({
   type: ActionTypes.COMMENT_ACTION_DELETE__SUCCESS,
   payload: {
     action,
   },
-});
+})
 
 deleteCommentAction.failure = (id, error) => ({
   type: ActionTypes.COMMENT_ACTION_DELETE__FAILURE,
@@ -66,4 +66,4 @@ deleteCommentAction.failure = (id, error) => ({
     id,
     error,
   },
-});
+})

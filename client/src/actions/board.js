@@ -1,11 +1,11 @@
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 export const createBoard = (board) => ({
   type: ActionTypes.BOARD_CREATE,
   payload: {
     board,
   },
-});
+})
 
 createBoard.success = (localId, board, boardMemberships) => ({
   type: ActionTypes.BOARD_CREATE__SUCCESS,
@@ -14,7 +14,7 @@ createBoard.success = (localId, board, boardMemberships) => ({
     board,
     boardMemberships,
   },
-});
+})
 
 createBoard.failure = (localId, error) => ({
   type: ActionTypes.BOARD_CREATE__FAILURE,
@@ -22,21 +22,21 @@ createBoard.failure = (localId, error) => ({
     localId,
     error,
   },
-});
+})
 
 export const handleBoardCreate = (board) => ({
   type: ActionTypes.BOARD_CREATE_HANDLE,
   payload: {
     board,
   },
-});
+})
 
 export const fetchBoard = (id) => ({
   type: ActionTypes.BOARD_FETCH,
   payload: {
     id,
   },
-});
+})
 
 fetchBoard.success = (
   board,
@@ -65,7 +65,7 @@ fetchBoard.success = (
     tasks,
     attachments,
   },
-});
+})
 
 fetchBoard.failure = (id, error) => ({
   type: ActionTypes.BOARD_FETCH__FAILURE,
@@ -73,7 +73,7 @@ fetchBoard.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
 export const updateBoard = (id, data) => ({
   type: ActionTypes.BOARD_UPDATE,
@@ -81,14 +81,14 @@ export const updateBoard = (id, data) => ({
     id,
     data,
   },
-});
+})
 
 updateBoard.success = (board) => ({
   type: ActionTypes.BOARD_UPDATE__SUCCESS,
   payload: {
     board,
   },
-});
+})
 
 updateBoard.failure = (id, error) => ({
   type: ActionTypes.BOARD_UPDATE__FAILURE,
@@ -96,28 +96,28 @@ updateBoard.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
 export const handleBoardUpdate = (board) => ({
   type: ActionTypes.BOARD_UPDATE_HANDLE,
   payload: {
     board,
   },
-});
+})
 
 export const deleteBoard = (id) => ({
   type: ActionTypes.BOARD_DELETE,
   payload: {
     id,
   },
-});
+})
 
 deleteBoard.success = (board) => ({
   type: ActionTypes.BOARD_DELETE__SUCCESS,
   payload: {
     board,
   },
-});
+})
 
 deleteBoard.failure = (id, error) => ({
   type: ActionTypes.BOARD_DELETE__FAILURE,
@@ -125,11 +125,11 @@ deleteBoard.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
 export const handleBoardDelete = (board) => ({
   type: ActionTypes.BOARD_DELETE_HANDLE,
   payload: {
     board,
   },
-});
+})

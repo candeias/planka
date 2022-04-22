@@ -1,3 +1,3 @@
-import AccountPane from './AccountPane';
+import AccountPane from './AccountPane'
 
-export default AccountPane;
+export default AccountPane

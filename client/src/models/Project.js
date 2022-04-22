@@ -1,10 +1,10 @@
-import { Model, attr, many } from 'redux-orm';
+import { Model, attr, many } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
-import { ProjectBackgroundTypes } from '../constants/Enums';
+import ActionTypes from '../constants/ActionTypes'
+import { ProjectBackgroundTypes } from '../constants/Enums'
 
-export default class extends Model {
-  static modelName = 'Project';
+export class Project extends Model {
+  static modelName = 'Project'
 
   static fields = {
     id: attr(),
@@ -19,142 +19,142 @@ export default class extends Model {
       through: 'ProjectManager',
       relatedName: 'projects',
     }),
-  };
+  }
 
   static reducer({ type, payload }, Project) {
     switch (type) {
       case ActionTypes.LOCATION_CHANGE_HANDLE:
         if (payload.projects) {
           payload.projects.forEach((project) => {
-            Project.upsert(project);
-          });
+            Project.upsert(project)
+          })
         }
 
-        break;
+        break
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
-        Project.all().delete();
+        Project.all().delete()
 
         payload.projects.forEach((project) => {
-          Project.upsert(project);
-        });
+          Project.upsert(project)
+        })
 
-        break;
+        break
       case ActionTypes.CORE_INITIALIZE:
       case ActionTypes.BOARD_FETCH__SUCCESS:
         payload.projects.forEach((project) => {
-          Project.upsert(project);
-        });
+          Project.upsert(project)
+        })
 
-        break;
+        break
       case ActionTypes.PROJECT_CREATE__SUCCESS:
       case ActionTypes.PROJECT_CREATE_HANDLE:
       case ActionTypes.PROJECT_UPDATE__SUCCESS:
       case ActionTypes.PROJECT_UPDATE_HANDLE:
-        Project.upsert(payload.project);
+        Project.upsert(payload.project)
 
-        break;
+        break
       case ActionTypes.PROJECT_UPDATE: {
-        const project = Project.withId(payload.id);
-        project.update(payload.data);
+        const project = Project.withId(payload.id)
+        project.update(payload.data)
 
         if (
           payload.data.backgroundImage === null &&
           project.background &&
           project.background.type === ProjectBackgroundTypes.IMAGE
         ) {
-          project.background = null;
+          project.background = null
         }
 
-        break;
+        break
       }
       case ActionTypes.PROJECT_BACKGROUND_IMAGE_UPDATE:
         Project.withId(payload.id).update({
           isBackgroundImageUpdating: true,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.PROJECT_BACKGROUND_IMAGE_UPDATE__SUCCESS:
         Project.withId(payload.project.id).update({
           ...payload.project,
           isBackgroundImageUpdating: false,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.PROJECT_BACKGROUND_IMAGE_UPDATE__FAILURE:
         Project.withId(payload.id).update({
           isBackgroundImageUpdating: false,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.PROJECT_DELETE:
-        Project.withId(payload.id).deleteWithRelated();
+        Project.withId(payload.id).deleteWithRelated()
 
-        break;
+        break
       case ActionTypes.PROJECT_DELETE__SUCCESS:
       case ActionTypes.PROJECT_DELETE_HANDLE: {
-        const projectModel = Project.withId(payload.project.id);
+        const projectModel = Project.withId(payload.project.id)
 
         if (projectModel) {
-          projectModel.deleteWithRelated();
+          projectModel.deleteWithRelated()
         }
 
-        break;
+        break
       }
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.project) {
-          const projectModel = Project.withId(payload.project.id);
+          const projectModel = Project.withId(payload.project.id)
 
           if (projectModel) {
-            projectModel.deleteWithRelated();
+            projectModel.deleteWithRelated()
           }
 
-          Project.upsert(payload.project);
+          Project.upsert(payload.project)
         }
 
-        break;
+        break
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE__PROJECT_FETCH:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE__PROJECT_FETCH: {
-        const projectModel = Project.withId(payload.id);
+        const projectModel = Project.withId(payload.id)
 
         if (projectModel) {
           projectModel.boards.toModelArray().forEach((boardModel) => {
             if (boardModel.id !== payload.currentBoardId) {
               boardModel.update({
                 isFetching: null,
-              });
+              })
 
-              boardModel.deleteRelated(payload.currentUserId);
+              boardModel.deleteRelated(payload.currentUserId)
             }
-          });
+          })
         }
 
-        break;
+        break
       }
       default:
     }
   }
 
   getOrderedManagersQuerySet() {
-    return this.managers.orderBy('id');
+    return this.managers.orderBy('id')
   }
 
   getOrderedBoardsQuerySet() {
-    return this.boards.orderBy('position');
+    return this.boards.orderBy('position')
   }
 
   getOrderedMemberBoardsModelArray(userId) {
     return this.getOrderedBoardsQuerySet()
       .toModelArray()
-      .filter((boardModel) => boardModel.hasMemberUser(userId));
+      .filter((boardModel) => boardModel.hasMemberUser(userId))
   }
 
   getOrderedAvailableBoardsModelArray(userId) {
     if (this.hasManagerUser(userId)) {
-      return this.getOrderedBoardsQuerySet().toModelArray();
+      return this.getOrderedBoardsQuerySet().toModelArray()
     }
 
-    return this.getOrderedMemberBoardsModelArray(userId);
+    return this.getOrderedMemberBoardsModelArray(userId)
   }
 
   hasManagerUser(userId) {
@@ -162,23 +162,25 @@ export default class extends Model {
       .filter({
         userId,
       })
-      .exists();
+      .exists()
   }
 
   hasMemberUserForAnyBoard(userId) {
-    return this.boards.toModelArray().some((boardModel) => boardModel.hasMemberUser(userId));
+    return this.boards
+      .toModelArray()
+      .some((boardModel) => boardModel.hasMemberUser(userId))
   }
 
   deleteRelated() {
-    this.managers.delete();
+    this.managers.delete()
 
     this.boards.toModelArray().forEach((boardModel) => {
-      boardModel.deleteWithRelated();
-    });
+      boardModel.deleteWithRelated()
+    })
   }
 
   deleteWithRelated() {
-    this.deleteRelated();
-    this.delete();
+    this.deleteRelated()
+    this.delete()
   }
 }

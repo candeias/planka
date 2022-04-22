@@ -1,3 +1,3 @@
-import useToggle from './use-toggle';
+import useToggle from './use-toggle'
 
-export default () => useToggle()[1];
+export default () => useToggle()[1]

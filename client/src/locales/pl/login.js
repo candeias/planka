@@ -17,4 +17,4 @@ export default {
       logIn: 'Zaloguj',
     },
   },
-};
+}

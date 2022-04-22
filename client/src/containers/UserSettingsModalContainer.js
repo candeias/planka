@@ -1,7 +1,7 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import { currentUserSelector } from '../selectors';
+import { currentUserSelector } from '../selectors'
 import {
   clearCurrentUserEmailUpdateError,
   clearCurrentUserPasswordUpdateError,
@@ -12,8 +12,8 @@ import {
   updateCurrentUserEmail,
   updateCurrentUserPassword,
   updateCurrentUserUsername,
-} from '../actions/entry';
-import UserSettingsModal from '../components/UserSettingsModal';
+} from '../actions/entry'
+import UserSettingsModal from '../components/UserSettingsModal'
 
 const mapStateToProps = (state) => {
   const {
@@ -28,7 +28,7 @@ const mapStateToProps = (state) => {
     emailUpdateForm,
     passwordUpdateForm,
     usernameUpdateForm,
-  } = currentUserSelector(state);
+  } = currentUserSelector(state)
 
   return {
     email,
@@ -42,8 +42,8 @@ const mapStateToProps = (state) => {
     emailUpdateForm,
     passwordUpdateForm,
     usernameUpdateForm,
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
@@ -59,6 +59,6 @@ const mapDispatchToProps = (dispatch) =>
       onClose: closeModal,
     },
     dispatch,
-  );
+  )
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserSettingsModal);
+export default connect(mapStateToProps, mapDispatchToProps)(UserSettingsModal)

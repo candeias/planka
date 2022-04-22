@@ -24,4 +24,4 @@ export default [
   'egg-yellow',
   'coral-green',
   'light-cocoa',
-];
+]

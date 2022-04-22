@@ -1,3 +1,3 @@
-import UserAddPopup from './UserAddPopup';
+import UserAddPopup from './UserAddPopup'
 
-export default UserAddPopup;
+export default UserAddPopup

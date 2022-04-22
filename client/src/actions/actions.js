@@ -1,4 +1,4 @@
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 // eslint-disable-next-line import/prefer-default-export
 export const fetchActions = (cardId) => ({
@@ -6,7 +6,7 @@ export const fetchActions = (cardId) => ({
   payload: {
     cardId,
   },
-});
+})
 
 fetchActions.success = (cardId, actions, users) => ({
   type: ActionTypes.ACTIONS_FETCH__SUCCESS,
@@ -15,7 +15,7 @@ fetchActions.success = (cardId, actions, users) => ({
     actions,
     users,
   },
-});
+})
 
 fetchActions.failure = (cardId, error) => ({
   type: ActionTypes.ACTIONS_FETCH__FAILURE,
@@ -23,4 +23,4 @@ fetchActions.failure = (cardId, error) => ({
     cardId,
     error,
   },
-});
+})

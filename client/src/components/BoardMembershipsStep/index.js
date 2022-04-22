@@ -1,3 +1,3 @@
-import BoardMembershipsStep from './BoardMembershipsStep';
+import BoardMembershipsStep from './BoardMembershipsStep'
 
-export default BoardMembershipsStep;
+export default BoardMembershipsStep

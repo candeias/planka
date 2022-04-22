@@ -1,13 +1,13 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react'
 
 export default (callback, dependencies) => {
-  const isMounted = useRef(false);
+  const isMounted = useRef(false)
 
   useEffect(() => {
     if (isMounted.current) {
-      callback();
+      callback()
     } else {
-      isMounted.current = true;
+      isMounted.current = true
     }
-  }, dependencies); // eslint-disable-line react-hooks/exhaustive-deps
-};
+  }, dependencies) // eslint-disable-line react-hooks/exhaustive-deps
+}

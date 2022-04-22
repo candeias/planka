@@ -1,3 +1,3 @@
-import UserSettingsModal from './UserSettingsModal';
+import UserSettingsModal from './UserSettingsModal'
 
-export default UserSettingsModal;
+export default UserSettingsModal

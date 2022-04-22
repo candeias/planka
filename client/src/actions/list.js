@@ -1,11 +1,11 @@
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 export const createList = (list) => ({
   type: ActionTypes.LIST_CREATE,
   payload: {
     list,
   },
-});
+})
 
 createList.success = (localId, list) => ({
   type: ActionTypes.LIST_CREATE__SUCCESS,
@@ -13,7 +13,7 @@ createList.success = (localId, list) => ({
     localId,
     list,
   },
-});
+})
 
 createList.failure = (localId, error) => ({
   type: ActionTypes.LIST_CREATE__FAILURE,
@@ -21,14 +21,14 @@ createList.failure = (localId, error) => ({
     localId,
     error,
   },
-});
+})
 
 export const handleListCreate = (list) => ({
   type: ActionTypes.LIST_CREATE_HANDLE,
   payload: {
     list,
   },
-});
+})
 
 export const updateList = (id, data) => ({
   type: ActionTypes.LIST_UPDATE,
@@ -36,14 +36,14 @@ export const updateList = (id, data) => ({
     id,
     data,
   },
-});
+})
 
 updateList.success = (list) => ({
   type: ActionTypes.LIST_UPDATE__SUCCESS,
   payload: {
     list,
   },
-});
+})
 
 updateList.failure = (id, error) => ({
   type: ActionTypes.LIST_UPDATE__FAILURE,
@@ -51,28 +51,28 @@ updateList.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
 export const handleListUpdate = (list) => ({
   type: ActionTypes.LIST_UPDATE_HANDLE,
   payload: {
     list,
   },
-});
+})
 
 export const deleteList = (id) => ({
   type: ActionTypes.LIST_DELETE,
   payload: {
     id,
   },
-});
+})
 
 deleteList.success = (list) => ({
   type: ActionTypes.LIST_DELETE__SUCCESS,
   payload: {
     list,
   },
-});
+})
 
 deleteList.failure = (id, error) => ({
   type: ActionTypes.LIST_DELETE__FAILURE,
@@ -80,11 +80,11 @@ deleteList.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
 export const handleListDelete = (list) => ({
   type: ActionTypes.LIST_DELETE_HANDLE,
   payload: {
     list,
   },
-});
+})

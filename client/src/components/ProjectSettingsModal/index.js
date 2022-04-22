@@ -1,3 +1,3 @@
-import ProjectSettingsModal from './ProjectSettingsModal';
+import ProjectSettingsModal from './ProjectSettingsModal'
 
-export default ProjectSettingsModal;
+export default ProjectSettingsModal

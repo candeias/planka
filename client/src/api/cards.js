@@ -1,5 +1,5 @@
-import socket from './socket';
-import { transformAttachment } from './attachments';
+import socket from './socket'
+import { transformAttachment } from './attachments'
 
 /* Transformers */
 
@@ -16,7 +16,7 @@ export const transformCard = (card) => ({
       }),
     },
   }),
-});
+})
 
 export const transformCardData = (data) => ({
   ...data,
@@ -31,7 +31,7 @@ export const transformCardData = (data) => ({
       }),
     },
   }),
-});
+})
 
 /* Actions */
 
@@ -43,31 +43,35 @@ const getCards = (boardId, data, headers) =>
       ...body.included,
       attachments: body.included.attachments.map(transformAttachment),
     },
-  }));
+  }))
 
 const createCard = (boardId, data, headers) =>
-  socket.post(`/boards/${boardId}/cards`, transformCardData(data), headers).then((body) => ({
-    ...body,
-    item: transformCard(body.item),
-  }));
+  socket
+    .post(`/boards/${boardId}/cards`, transformCardData(data), headers)
+    .then((body) => ({
+      ...body,
+      item: transformCard(body.item),
+    }))
 
 const getCard = (id, headers) =>
   socket.get(`/cards/${id}`, undefined, headers).then((body) => ({
     ...body,
     item: transformCard(body.item),
-  }));
+  }))
 
 const updateCard = (id, data, headers) =>
-  socket.patch(`/cards/${id}`, transformCardData(data), headers).then((body) => ({
-    ...body,
-    item: transformCard(body.item),
-  }));
+  socket
+    .patch(`/cards/${id}`, transformCardData(data), headers)
+    .then((body) => ({
+      ...body,
+      item: transformCard(body.item),
+    }))
 
 const deleteCard = (id, headers) =>
   socket.delete(`/cards/${id}`, undefined, headers).then((body) => ({
     ...body,
     item: transformCard(body.item),
-  }));
+  }))
 
 /* Event handlers */
 
@@ -75,17 +79,17 @@ const makeHandleCardCreate = (next) => (body) => {
   next({
     ...body,
     item: transformCard(body.item),
-  });
-};
+  })
+}
 
 const makeHandleCardUpdate = (next) => (body) => {
   next({
     ...body,
     item: transformCard(body.item),
-  });
-};
+  })
+}
 
-const makeHandleCardDelete = makeHandleCardUpdate;
+const makeHandleCardDelete = makeHandleCardUpdate
 
 export default {
   getCards,
@@ -96,4 +100,4 @@ export default {
   makeHandleCardCreate,
   makeHandleCardUpdate,
   makeHandleCardDelete,
-};
+}

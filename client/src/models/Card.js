@@ -1,10 +1,10 @@
-import { Model, attr, fk, many, oneToOne } from 'redux-orm';
+import { Model, attr, fk, many, oneToOne } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
-import Config from '../constants/Config';
+import ActionTypes from '../constants/ActionTypes'
+import Config from '../constants/Config'
 
-export default class extends Model {
-  static modelName = 'Card';
+export class Card extends Model {
+  static modelName = 'Card'
 
   static fields = {
     id: attr(),
@@ -39,9 +39,9 @@ export default class extends Model {
     }),
     users: many('User', 'cards'),
     labels: many('Label', 'cards'),
-  };
+  }
 
-  static reducer({ type, payload }, Card) {
+  static reducer({ type, payload }, sCard) {
     switch (type) {
       case ActionTypes.LOCATION_CHANGE_HANDLE:
       case ActionTypes.CORE_INITIALIZE:
@@ -49,188 +49,196 @@ export default class extends Model {
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.cards) {
           payload.cards.forEach((card) => {
-            Card.upsert(card);
-          });
+            sCard.upsert(card)
+          })
         }
 
         if (payload.cardMemberships) {
           payload.cardMemberships.forEach(({ cardId, userId }) => {
-            Card.withId(cardId).users.add(userId);
-          });
+            sCard.withId(cardId).users.add(userId)
+          })
         }
 
         if (payload.cardLabels) {
           payload.cardLabels.forEach(({ cardId, labelId }) => {
-            Card.withId(cardId).labels.add(labelId);
-          });
+            sCard.withId(cardId).labels.add(labelId)
+          })
         }
 
-        break;
+        break
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
-        Card.all().delete();
+        sCard.all().delete()
 
         if (payload.cards) {
           payload.cards.forEach((card) => {
-            Card.upsert(card);
-          });
+            sCard.upsert(card)
+          })
         }
 
         if (payload.cardMemberships) {
           payload.cardMemberships.forEach(({ cardId, userId }) => {
-            Card.withId(cardId).users.add(userId);
-          });
+            sCard.withId(cardId).users.add(userId)
+          })
         }
 
         if (payload.cardLabels) {
           payload.cardLabels.forEach(({ cardId, labelId }) => {
-            Card.withId(cardId).labels.add(labelId);
-          });
+            sCard.withId(cardId).labels.add(labelId)
+          })
         }
 
-        break;
+        break
       case ActionTypes.USER_TO_CARD_ADD: {
-        const cardModel = Card.withId(payload.cardId);
-        cardModel.users.add(payload.id);
+        const cardModel = sCard.withId(payload.cardId)
+        cardModel.users.add(payload.id)
 
         if (payload.isCurrent) {
-          cardModel.isSubscribed = true;
+          cardModel.isSubscribed = true
         }
 
-        break;
+        break
       }
       case ActionTypes.USER_TO_CARD_ADD__SUCCESS:
       case ActionTypes.USER_TO_CARD_ADD_HANDLE:
         try {
-          Card.withId(payload.cardMembership.cardId).users.add(payload.cardMembership.userId);
+          sCard
+            .withId(payload.cardMembership.cardId)
+            .users.add(payload.cardMembership.userId)
         } catch {} // eslint-disable-line no-empty
 
-        break;
+        break
       case ActionTypes.USER_FROM_CARD_REMOVE:
-        Card.withId(payload.cardId).users.remove(payload.id);
+        sCard.withId(payload.cardId).users.remove(payload.id)
 
-        break;
+        break
       case ActionTypes.USER_FROM_CARD_REMOVE__SUCCESS:
       case ActionTypes.USER_FROM_CARD_REMOVE_HANDLE:
         try {
-          Card.withId(payload.cardMembership.cardId).users.remove(payload.cardMembership.userId);
+          sCard
+            .withId(payload.cardMembership.cardId)
+            .users.remove(payload.cardMembership.userId)
         } catch {} // eslint-disable-line no-empty
 
-        break;
+        break
       case ActionTypes.BOARD_FETCH__SUCCESS:
         payload.cards.forEach((card) => {
-          Card.upsert(card);
-        });
+          sCard.upsert(card)
+        })
 
         payload.cardMemberships.forEach(({ cardId, userId }) => {
-          Card.withId(cardId).users.add(userId);
-        });
+          sCard.withId(cardId).users.add(userId)
+        })
 
         payload.cardLabels.forEach(({ cardId, labelId }) => {
-          Card.withId(cardId).labels.add(labelId);
-        });
+          sCard.withId(cardId).labels.add(labelId)
+        })
 
-        break;
+        break
       case ActionTypes.LABEL_TO_CARD_ADD:
-        Card.withId(payload.cardId).labels.add(payload.id);
+        sCard.withId(payload.cardId).labels.add(payload.id)
 
-        break;
+        break
       case ActionTypes.LABEL_TO_CARD_ADD__SUCCESS:
       case ActionTypes.LABEL_TO_CARD_ADD_HANDLE:
         try {
-          Card.withId(payload.cardLabel.cardId).labels.add(payload.cardLabel.labelId);
+          sCard
+            .withId(payload.cardLabel.cardId)
+            .labels.add(payload.cardLabel.labelId)
         } catch {} // eslint-disable-line no-empty
 
-        break;
+        break
       case ActionTypes.LABEL_FROM_CARD_REMOVE:
-        Card.withId(payload.cardId).labels.remove(payload.id);
+        sCard.withId(payload.cardId).labels.remove(payload.id)
 
-        break;
+        break
       case ActionTypes.LABEL_FROM_CARD_REMOVE__SUCCESS:
       case ActionTypes.LABEL_FROM_CARD_REMOVE_HANDLE:
         try {
-          Card.withId(payload.cardLabel.cardId).labels.remove(payload.cardLabel.labelId);
+          sCard
+            .withId(payload.cardLabel.cardId)
+            .labels.remove(payload.cardLabel.labelId)
         } catch {} // eslint-disable-line no-empty
 
-        break;
+        break
       case ActionTypes.CARD_CREATE:
       case ActionTypes.CARD_CREATE_HANDLE:
       case ActionTypes.CARD_UPDATE__SUCCESS:
       case ActionTypes.CARD_UPDATE_HANDLE:
-        Card.upsert(payload.card);
+        sCard.upsert(payload.card)
 
-        break;
+        break
       case ActionTypes.CARD_CREATE__SUCCESS:
-        Card.withId(payload.localId).delete();
-        Card.upsert(payload.card);
+        sCard.withId(payload.localId).delete()
+        sCard.upsert(payload.card)
 
-        break;
+        break
       case ActionTypes.CARD_UPDATE:
-        Card.withId(payload.id).update(payload.data);
+        sCard.withId(payload.id).update(payload.data)
 
-        break;
+        break
       case ActionTypes.CARD_DELETE:
-        Card.withId(payload.id).delete();
+        sCard.withId(payload.id).delete()
 
-        break;
+        break
       case ActionTypes.CARD_DELETE__SUCCESS:
       case ActionTypes.CARD_DELETE_HANDLE: {
-        const cardModel = Card.withId(payload.card.id);
+        const cardModel = sCard.withId(payload.card.id)
 
         if (cardModel) {
-          cardModel.deleteWithRelated();
+          cardModel.deleteWithRelated()
         }
 
-        break;
+        break
       }
       case ActionTypes.ACTIONS_FETCH:
-        Card.withId(payload.cardId).update({
+        sCard.withId(payload.cardId).update({
           isActionsFetching: true,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.ACTIONS_FETCH__SUCCESS:
-        Card.withId(payload.cardId).update({
+        sCard.withId(payload.cardId).update({
           isActionsFetching: false,
           isAllActionsFetched: payload.actions.length < Config.ACTIONS_LIMIT,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.NOTIFICATION_CREATE_HANDLE:
         payload.cards.forEach((card) => {
-          Card.upsert(card);
-        });
+          sCard.upsert(card)
+        })
 
-        break;
+        break
       default:
     }
   }
 
   getOrderedTasksQuerySet() {
-    return this.tasks.orderBy('id');
+    return this.tasks.orderBy('id')
   }
 
   getOrderedAttachmentsQuerySet() {
-    return this.attachments.orderBy('id', false);
+    return this.attachments.orderBy('id', false)
   }
 
   getOrderedInCardActionsQuerySet() {
-    return this.actions.orderBy('id', false);
+    return this.actions.orderBy('id', false)
   }
 
   getUnreadNotificationsQuerySet() {
     return this.notifications.filter({
       isRead: false,
-    });
+    })
   }
 
   deleteRelated() {
-    this.tasks.delete();
-    this.attachments.delete();
-    this.actions.delete();
+    this.tasks.delete()
+    this.attachments.delete()
+    this.actions.delete()
   }
 
   deleteWithRelated() {
-    this.deleteRelated();
-    this.delete();
+    this.deleteRelated()
+    this.delete()
   }
 }

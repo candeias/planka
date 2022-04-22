@@ -1,9 +1,9 @@
-import { Model, attr, fk, many } from 'redux-orm';
+import { Model, attr, fk, many } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
-export default class extends Model {
-  static modelName = 'Board';
+export class Board extends Model {
+  static modelName = 'Board'
 
   static fields = {
     id: attr(),
@@ -25,7 +25,7 @@ export default class extends Model {
     }),
     filterUsers: many('User', 'filterBoards'),
     filterLabels: many('Label', 'filterBoards'),
-  };
+  }
 
   static reducer({ type, payload }, Board) {
     switch (type) {
@@ -34,31 +34,31 @@ export default class extends Model {
         Board.upsert({
           ...payload.board,
           isFetching: false,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.LOCATION_CHANGE_HANDLE__BOARD_FETCH:
       case ActionTypes.BOARD_FETCH:
         Board.withId(payload.id).update({
           isFetching: true,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
-        Board.all().delete();
+        Board.all().delete()
 
         if (payload.board) {
           Board.upsert({
             ...payload.board,
             isFetching: false,
-          });
+          })
         }
 
         payload.boards.forEach((board) => {
-          Board.upsert(board);
-        });
+          Board.upsert(board)
+        })
 
-        break;
+        break
       case ActionTypes.SOCKET_RECONNECT_HANDLE__CORE_FETCH:
         Board.all()
           .toModelArray()
@@ -66,40 +66,40 @@ export default class extends Model {
             if (boardModel.id !== payload.currentBoardId) {
               boardModel.update({
                 isFetching: null,
-              });
+              })
 
-              boardModel.deleteRelated(payload.currentUserId);
+              boardModel.deleteRelated(payload.currentUserId)
             }
-          });
+          })
 
-        break;
+        break
       case ActionTypes.CORE_INITIALIZE:
         if (payload.board) {
           Board.upsert({
             ...payload.board,
             isFetching: false,
-          });
+          })
         }
 
         payload.boards.forEach((board) => {
-          Board.upsert(board);
-        });
+          Board.upsert(board)
+        })
 
-        break;
+        break
       case ActionTypes.USER_TO_BOARD_FILTER_ADD:
-        Board.withId(payload.boardId).filterUsers.add(payload.id);
+        Board.withId(payload.boardId).filterUsers.add(payload.id)
 
-        break;
+        break
       case ActionTypes.USER_FROM_BOARD_FILTER_REMOVE:
-        Board.withId(payload.boardId).filterUsers.remove(payload.id);
+        Board.withId(payload.boardId).filterUsers.remove(payload.id)
 
-        break;
+        break
       case ActionTypes.PROJECT_CREATE_HANDLE:
         payload.boards.forEach((board) => {
-          Board.upsert(board);
-        });
+          Board.upsert(board)
+        })
 
-        break;
+        break
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.boards) {
@@ -110,69 +110,69 @@ export default class extends Model {
                 payload.board.id === board.id && {
                   isFetching: false,
                 }),
-            });
-          });
+            })
+          })
         }
 
-        break;
+        break
       case ActionTypes.BOARD_CREATE:
       case ActionTypes.BOARD_CREATE_HANDLE:
       case ActionTypes.BOARD_UPDATE__SUCCESS:
       case ActionTypes.BOARD_UPDATE_HANDLE:
-        Board.upsert(payload.board);
+        Board.upsert(payload.board)
 
-        break;
+        break
       case ActionTypes.BOARD_CREATE__SUCCESS:
-        Board.withId(payload.localId).delete();
+        Board.withId(payload.localId).delete()
 
         Board.upsert({
           ...payload.board,
           isFetching: false,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.BOARD_FETCH__FAILURE:
         Board.withId(payload.id).update({
           isFetching: null,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.BOARD_UPDATE:
-        Board.withId(payload.id).update(payload.data);
+        Board.withId(payload.id).update(payload.data)
 
-        break;
+        break
       case ActionTypes.BOARD_DELETE:
-        Board.withId(payload.id).deleteWithRelated();
+        Board.withId(payload.id).deleteWithRelated()
 
-        break;
+        break
       case ActionTypes.BOARD_DELETE__SUCCESS:
       case ActionTypes.BOARD_DELETE_HANDLE: {
-        const boardModel = Board.withId(payload.board.id);
+        const boardModel = Board.withId(payload.board.id)
 
         if (boardModel) {
-          boardModel.deleteWithRelated();
+          boardModel.deleteWithRelated()
         }
 
-        break;
+        break
       }
       case ActionTypes.LABEL_TO_BOARD_FILTER_ADD:
-        Board.withId(payload.boardId).filterLabels.add(payload.id);
+        Board.withId(payload.boardId).filterLabels.add(payload.id)
 
-        break;
+        break
       case ActionTypes.LABEL_FROM_BOARD_FILTER_REMOVE:
-        Board.withId(payload.boardId).filterLabels.remove(payload.id);
+        Board.withId(payload.boardId).filterLabels.remove(payload.id)
 
-        break;
+        break
       default:
     }
   }
 
   getOrderedMembershipsQuerySet() {
-    return this.memberships.orderBy('id');
+    return this.memberships.orderBy('id')
   }
 
   getOrderedListsQuerySet() {
-    return this.lists.orderBy('position');
+    return this.lists.orderBy('position')
   }
 
   hasMemberUser(userId) {
@@ -180,25 +180,25 @@ export default class extends Model {
       .filter({
         userId,
       })
-      .exists();
+      .exists()
   }
 
   deleteRelated(exceptMemberUserId) {
     this.memberships.toModelArray().forEach((boardMembershipModel) => {
       if (boardMembershipModel.userId !== exceptMemberUserId) {
-        boardMembershipModel.deleteWithRelated();
+        boardMembershipModel.deleteWithRelated()
       }
-    });
+    })
 
-    this.labels.delete();
+    this.labels.delete()
 
     this.lists.toModelArray().forEach((listModel) => {
-      listModel.deleteWithRelated();
-    });
+      listModel.deleteWithRelated()
+    })
   }
 
   deleteWithRelated() {
-    this.deleteRelated();
-    this.delete();
+    this.deleteRelated()
+    this.delete()
   }
 }

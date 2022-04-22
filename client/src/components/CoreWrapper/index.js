@@ -1,3 +1,3 @@
-import CoreWrapper from './CoreWrapper';
+import CoreWrapper from './CoreWrapper'
 
-export default CoreWrapper;
+export default CoreWrapper

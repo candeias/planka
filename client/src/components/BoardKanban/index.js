@@ -1,3 +1,3 @@
-import BoardKanban from './BoardKanban';
+import BoardKanban from './BoardKanban'
 
-export default BoardKanban;
+export default BoardKanban

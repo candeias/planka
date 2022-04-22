@@ -1,5 +1,5 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import {
   isCurrentUserMemberForCurrentBoardSelector,
@@ -12,7 +12,7 @@ import {
   membershipsForCurrentBoardSelector,
   pathSelector,
   projectsToListsForCurrentUserSelector,
-} from '../selectors';
+} from '../selectors'
 import {
   addLabelToCard,
   addUserToCard,
@@ -26,32 +26,32 @@ import {
   transferCard,
   updateLabel,
   updateCard,
-} from '../actions/entry';
-import Card from '../components/Card';
+} from '../actions/entry'
+import Card from '../components/Card'
 
 const makeMapStateToProps = () => {
-  const cardByIdSelector = makeCardByIdSelector();
-  const usersByCardIdSelector = makeUsersByCardIdSelector();
-  const labelsByCardIdSelector = makeLabelsByCardIdSelector();
-  const tasksByCardIdSelector = makeTasksByCardIdSelector();
-  const notificationsTotalByCardIdSelector = makeNotificationsTotalByCardIdSelector();
+  const cardByIdSelector = makeCardByIdSelector()
+  const usersByCardIdSelector = makeUsersByCardIdSelector()
+  const labelsByCardIdSelector = makeLabelsByCardIdSelector()
+  const tasksByCardIdSelector = makeTasksByCardIdSelector()
+  const notificationsTotalByCardIdSelector =
+    makeNotificationsTotalByCardIdSelector()
 
   return (state, { id, index }) => {
-    const { projectId } = pathSelector(state);
-    const allProjectsToLists = projectsToListsForCurrentUserSelector(state);
-    const allBoardMemberships = membershipsForCurrentBoardSelector(state);
-    const allLabels = labelsForCurrentBoardSelector(state);
-    const isCurrentUserMember = isCurrentUserMemberForCurrentBoardSelector(state);
+    const { projectId } = pathSelector(state)
+    const allProjectsToLists = projectsToListsForCurrentUserSelector(state)
+    const allBoardMemberships = membershipsForCurrentBoardSelector(state)
+    const allLabels = labelsForCurrentBoardSelector(state)
+    const isCurrentUserMember =
+      isCurrentUserMemberForCurrentBoardSelector(state)
 
-    const { name, dueDate, timer, coverUrl, boardId, listId, isPersisted } = cardByIdSelector(
-      state,
-      id,
-    );
+    const { name, dueDate, timer, coverUrl, boardId, listId, isPersisted } =
+      cardByIdSelector(state, id)
 
-    const users = usersByCardIdSelector(state, id);
-    const labels = labelsByCardIdSelector(state, id);
-    const tasks = tasksByCardIdSelector(state, id);
-    const notificationsTotal = notificationsTotalByCardIdSelector(state, id);
+    const users = usersByCardIdSelector(state, id)
+    const labels = labelsByCardIdSelector(state, id)
+    const tasks = tasksByCardIdSelector(state, id)
+    const notificationsTotal = notificationsTotalByCardIdSelector(state, id)
 
     return {
       id,
@@ -72,9 +72,9 @@ const makeMapStateToProps = () => {
       allBoardMemberships,
       allLabels,
       canEdit: isCurrentUserMember,
-    };
-  };
-};
+    }
+  }
+}
 
 const mapDispatchToProps = (dispatch, { id }) =>
   bindActionCreators(
@@ -93,6 +93,6 @@ const mapDispatchToProps = (dispatch, { id }) =>
       onLabelDelete: (labelId) => deleteLabel(labelId),
     },
     dispatch,
-  );
+  )
 
-export default connect(makeMapStateToProps, mapDispatchToProps)(Card);
+export default connect(makeMapStateToProps, mapDispatchToProps)(Card)

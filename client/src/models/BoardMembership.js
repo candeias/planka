@@ -1,9 +1,9 @@
-import { Model, attr, fk } from 'redux-orm';
+import { Model, attr, fk } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
-export default class extends Model {
-  static modelName = 'BoardMembership';
+export class BoardMembership extends Model {
+  static modelName = 'BoardMembership'
 
   static fields = {
     id: attr(),
@@ -17,7 +17,7 @@ export default class extends Model {
       as: 'user',
       relatedName: 'boardMemberships',
     }),
-  };
+  }
 
   static reducer({ type, payload }, BoardMembership) {
     switch (type) {
@@ -25,60 +25,62 @@ export default class extends Model {
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
         if (payload.boardMemberships) {
           payload.boardMemberships.forEach((boardMembership) => {
-            BoardMembership.upsert(boardMembership);
-          });
+            BoardMembership.upsert(boardMembership)
+          })
         }
 
-        break;
+        break
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
-        BoardMembership.all().delete();
+        BoardMembership.all().delete()
 
         payload.boardMemberships.forEach((boardMembership) => {
-          BoardMembership.upsert(boardMembership);
-        });
+          BoardMembership.upsert(boardMembership)
+        })
 
-        break;
+        break
       case ActionTypes.CORE_INITIALIZE:
       case ActionTypes.PROJECT_CREATE_HANDLE:
       case ActionTypes.BOARD_CREATE__SUCCESS:
       case ActionTypes.BOARD_FETCH__SUCCESS:
         payload.boardMemberships.forEach((boardMembership) => {
-          BoardMembership.upsert(boardMembership);
-        });
+          BoardMembership.upsert(boardMembership)
+        })
 
-        break;
+        break
       case ActionTypes.BOARD_MEMBERSHIP_CREATE:
-        BoardMembership.upsert(payload.boardMembership);
+        BoardMembership.upsert(payload.boardMembership)
 
-        break;
+        break
       case ActionTypes.BOARD_MEMBERSHIP_CREATE__SUCCESS:
-        BoardMembership.withId(payload.localId).delete();
-        BoardMembership.upsert(payload.boardMembership);
+        BoardMembership.withId(payload.localId).delete()
+        BoardMembership.upsert(payload.boardMembership)
 
-        break;
+        break
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
-        BoardMembership.upsert(payload.boardMembership);
+        BoardMembership.upsert(payload.boardMembership)
 
         if (payload.boardMemberships) {
           payload.boardMemberships.forEach((boardMembership) => {
-            BoardMembership.upsert(boardMembership);
-          });
+            BoardMembership.upsert(boardMembership)
+          })
         }
 
-        break;
+        break
       case ActionTypes.BOARD_MEMBERSHIP_DELETE:
-        BoardMembership.withId(payload.id).deleteWithRelated();
+        BoardMembership.withId(payload.id).deleteWithRelated()
 
-        break;
+        break
       case ActionTypes.BOARD_MEMBERSHIP_DELETE__SUCCESS:
       case ActionTypes.BOARD_MEMBERSHIP_DELETE_HANDLE: {
-        const boardMembershipModel = BoardMembership.withId(payload.boardMembership.id);
+        const boardMembershipModel = BoardMembership.withId(
+          payload.boardMembership.id,
+        )
 
         if (boardMembershipModel) {
-          boardMembershipModel.deleteWithRelated();
+          boardMembershipModel.deleteWithRelated()
         }
 
-        break;
+        break
       }
       default:
     }
@@ -87,17 +89,17 @@ export default class extends Model {
   deleteRelated() {
     this.board.cards.toModelArray().forEach((cardModel) => {
       try {
-        cardModel.users.remove(this.userId);
+        cardModel.users.remove(this.userId)
       } catch {} // eslint-disable-line no-empty
-    });
+    })
 
     try {
-      this.board.filterUsers.remove(this.userId);
+      this.board.filterUsers.remove(this.userId)
     } catch {} // eslint-disable-line no-empty
   }
 
   deleteWithRelated() {
-    this.deleteRelated();
-    this.delete();
+    this.deleteRelated()
+    this.delete()
   }
 }

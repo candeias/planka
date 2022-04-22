@@ -1,3 +1,3 @@
-import ProjectAddModal from './ProjectAddModal';
+import ProjectAddModal from './ProjectAddModal'
 
-export default ProjectAddModal;
+export default ProjectAddModal

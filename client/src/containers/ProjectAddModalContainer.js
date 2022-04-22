@@ -1,8 +1,8 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import { closeModal, createProject } from '../actions/entry';
-import ProjectAddModal from '../components/ProjectAddModal';
+import { closeModal, createProject } from '../actions/entry'
+import ProjectAddModal from '../components/ProjectAddModal'
 
 const mapStateToProps = ({
   ui: {
@@ -11,7 +11,7 @@ const mapStateToProps = ({
 }) => ({
   defaultData,
   isSubmitting,
-});
+})
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
@@ -20,6 +20,6 @@ const mapDispatchToProps = (dispatch) =>
       onClose: closeModal,
     },
     dispatch,
-  );
+  )
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectAddModal);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectAddModal)

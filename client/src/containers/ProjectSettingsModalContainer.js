@@ -1,11 +1,11 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import {
   currentProjectSelector,
   managersForCurrentProjectSelector,
   usersSelector,
-} from '../selectors';
+} from '../selectors'
 import {
   closeModal,
   createManagerInCurrentProject,
@@ -13,16 +13,16 @@ import {
   deleteProjectManager,
   updateCurrentProject,
   updateCurrentProjectBackgroundImage,
-} from '../actions/entry';
-import ProjectSettingsModal from '../components/ProjectSettingsModal';
+} from '../actions/entry'
+import ProjectSettingsModal from '../components/ProjectSettingsModal'
 
 const mapStateToProps = (state) => {
-  const users = usersSelector(state);
+  const users = usersSelector(state)
 
   const { name, background, backgroundImage, isBackgroundImageUpdating } =
-    currentProjectSelector(state);
+    currentProjectSelector(state)
 
-  const managers = managersForCurrentProjectSelector(state);
+  const managers = managersForCurrentProjectSelector(state)
 
   return {
     name,
@@ -31,8 +31,8 @@ const mapStateToProps = (state) => {
     isBackgroundImageUpdating,
     managers,
     allUsers: users,
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
@@ -45,6 +45,9 @@ const mapDispatchToProps = (dispatch) =>
       onClose: closeModal,
     },
     dispatch,
-  );
+  )
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectSettingsModal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProjectSettingsModal)

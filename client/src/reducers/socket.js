@@ -1,8 +1,8 @@
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 const initialState = {
   isDisconnected: false,
-};
+}
 
 // eslint-disable-next-line default-param-last
 export default (state = initialState, { type }) => {
@@ -11,13 +11,13 @@ export default (state = initialState, { type }) => {
       return {
         ...state,
         isDisconnected: true,
-      };
+      }
     case ActionTypes.SOCKET_RECONNECT_HANDLE:
       return {
         ...state,
         isDisconnected: false,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}

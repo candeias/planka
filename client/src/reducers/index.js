@@ -1,11 +1,11 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
-import router from './router';
-import socket from './socket';
-import orm from './orm';
-import auth from './auth';
-import core from './core';
-import ui from './ui';
+import router from './router'
+import socket from './socket'
+import orm from './orm'
+import auth from './auth'
+import core from './core'
+import ui from './ui'
 
 export default combineReducers({
   router,
@@ -14,4 +14,4 @@ export default combineReducers({
   auth,
   core,
   ui,
-});
+})

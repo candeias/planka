@@ -1,11 +1,11 @@
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 export const createProjectManager = (projectManager) => ({
   type: ActionTypes.PROJECT_MANAGER_CREATE,
   payload: {
     projectManager,
   },
-});
+})
 
 createProjectManager.success = (localId, projectManager) => ({
   type: ActionTypes.PROJECT_MANAGER_CREATE__SUCCESS,
@@ -13,7 +13,7 @@ createProjectManager.success = (localId, projectManager) => ({
     localId,
     projectManager,
   },
-});
+})
 
 createProjectManager.failure = (localId, error) => ({
   type: ActionTypes.PROJECT_MANAGER_CREATE__FAILURE,
@@ -21,7 +21,7 @@ createProjectManager.failure = (localId, error) => ({
     localId,
     error,
   },
-});
+})
 
 export const handleProjectManagerCreate = (
   projectManager,
@@ -56,16 +56,20 @@ export const handleProjectManagerCreate = (
     tasks,
     attachments,
   },
-});
+})
 
-handleProjectManagerCreate.fetchProject = (id, currentUserId, currentBoardId) => ({
+handleProjectManagerCreate.fetchProject = (
+  id,
+  currentUserId,
+  currentBoardId,
+) => ({
   type: ActionTypes.PROJECT_MANAGER_CREATE_HANDLE__PROJECT_FETCH,
   payload: {
     id,
     currentUserId,
     currentBoardId,
   },
-});
+})
 
 export const deleteProjectManager = (id, isCurrentUser, isCurrentProject) => ({
   type: ActionTypes.PROJECT_MANAGER_DELETE,
@@ -74,14 +78,14 @@ export const deleteProjectManager = (id, isCurrentUser, isCurrentProject) => ({
     isCurrentUser,
     isCurrentProject,
   },
-});
+})
 
 deleteProjectManager.success = (projectManager) => ({
   type: ActionTypes.PROJECT_MANAGER_DELETE__SUCCESS,
   payload: {
     projectManager,
   },
-});
+})
 
 deleteProjectManager.failure = (id, error) => ({
   type: ActionTypes.PROJECT_MANAGER_DELETE__FAILURE,
@@ -89,13 +93,17 @@ deleteProjectManager.failure = (id, error) => ({
     id,
     error,
   },
-});
+})
 
-export const handleProjectManagerDelete = (projectManager, isCurrentUser, isCurrentProject) => ({
+export const handleProjectManagerDelete = (
+  projectManager,
+  isCurrentUser,
+  isCurrentProject,
+) => ({
   type: ActionTypes.PROJECT_MANAGER_DELETE_HANDLE,
   payload: {
     projectManager,
     isCurrentUser,
     isCurrentProject,
   },
-});
+})

@@ -1,9 +1,9 @@
-import { Model, attr, fk } from 'redux-orm';
+import { Model, attr, fk } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
-export default class extends Model {
-  static modelName = 'Attachment';
+export class Attachment extends Model {
+  static modelName = 'Attachment'
 
   static fields = {
     id: attr(),
@@ -15,9 +15,9 @@ export default class extends Model {
       as: 'card',
       relatedName: 'attachments',
     }),
-  };
+  }
 
-  static reducer({ type, payload }, Attachment) {
+  static reducer({ type, payload }, sAttachment) {
     switch (type) {
       case ActionTypes.LOCATION_CHANGE_HANDLE:
       case ActionTypes.CORE_INITIALIZE:
@@ -25,67 +25,70 @@ export default class extends Model {
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.attachments) {
           payload.attachments.forEach((attachment) => {
-            Attachment.upsert(attachment);
-          });
+            sAttachment.upsert(attachment)
+          })
         }
 
-        break;
+        break
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
         if (payload.attachments) {
           // FIXME: bug with oneToOne relation in Redux-ORM
-          const attachmentIds = payload.attachments.map((attachment) => attachment.id);
+          const attachmentIds = payload.attachments.map(
+            (attachment) => attachment.id,
+          )
 
-          Attachment.all()
+          sAttachment
+            .all()
             .toModelArray()
             .forEach((attachmentModel) => {
               if (!attachmentIds.includes(attachmentModel.id)) {
-                attachmentModel.delete();
+                attachmentModel.delete()
               }
-            });
+            })
 
           payload.attachments.forEach((attachment) => {
-            Attachment.upsert(attachment);
-          });
+            sAttachment.upsert(attachment)
+          })
         } else {
-          Attachment.all().delete();
+          sAttachment.all().delete()
         }
 
-        break;
+        break
       case ActionTypes.BOARD_FETCH__SUCCESS:
         payload.attachments.forEach((attachment) => {
-          Attachment.upsert(attachment);
-        });
+          sAttachment.upsert(attachment)
+        })
 
-        break;
+        break
       case ActionTypes.ATTACHMENT_CREATE:
       case ActionTypes.ATTACHMENT_CREATE_HANDLE:
       case ActionTypes.ATTACHMENT_UPDATE__SUCCESS:
       case ActionTypes.ATTACHMENT_UPDATE_HANDLE:
-        Attachment.upsert(payload.attachment);
+        sAttachment.upsert(payload.attachment)
 
-        break;
+        break
       case ActionTypes.ATTACHMENT_CREATE__SUCCESS:
-        Attachment.withId(payload.localId).delete();
-        Attachment.upsert(payload.attachment);
+        sAttachment.withId(payload.localId).delete()
+        sAttachment.upsert(payload.attachment)
 
-        break;
+        break
       case ActionTypes.ATTACHMENT_UPDATE:
-        Attachment.withId(payload.id).update(payload.data);
+        sAttachment.withId(payload.id).update(payload.data)
 
-        break;
+        break
       case ActionTypes.ATTACHMENT_DELETE:
-        Attachment.withId(payload.id).delete();
+        sAttachment.withId(payload.id).delete()
 
-        break;
+        break
       case ActionTypes.ATTACHMENT_DELETE__SUCCESS:
       case ActionTypes.ATTACHMENT_DELETE_HANDLE: {
-        const attachmentModel = Attachment.withId(payload.attachment.id);
+        const attachmentModel = sAttachment.withId(payload.attachment.id)
 
         if (attachmentModel) {
-          attachmentModel.delete();
+          attachmentModel.delete()
         }
 
-        break;
+        break
       }
       default:
     }

@@ -1,3 +1,3 @@
-import Task from './Tasks';
+import Task from './Tasks'
 
-export default Task;
+export default Task

@@ -1,3 +1,3 @@
-import LabelsStep from './LabelsStep';
+import LabelsStep from './LabelsStep'
 
-export default LabelsStep;
+export default LabelsStep

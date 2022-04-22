@@ -1,3 +1,3 @@
-import DueDate from './DueDate';
+import DueDate from './DueDate'
 
-export default DueDate;
+export default DueDate

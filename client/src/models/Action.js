@@ -1,9 +1,9 @@
-import { Model, attr, fk } from 'redux-orm';
+import { Model, attr, fk } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
-export default class extends Model {
-  static modelName = 'Action';
+export class Action extends Model {
+  static modelName = 'Action'
 
   static fields = {
     id: attr(),
@@ -25,69 +25,69 @@ export default class extends Model {
       as: 'user',
       relatedName: 'actions',
     }),
-  };
+  }
 
-  static reducer({ type, payload }, Action) {
+  static reducer({ type, payload }, sAction) {
     switch (type) {
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
-        Action.all().delete();
+        sAction.all().delete()
 
         payload.actions.forEach((action) => {
-          Action.upsert({
+          sAction.upsert({
             ...action,
             isInCard: false,
-          });
-        });
+          })
+        })
 
-        break;
+        break
       case ActionTypes.CORE_INITIALIZE:
         payload.actions.forEach((action) => {
-          Action.upsert({
+          sAction.upsert({
             ...action,
             isInCard: false,
-          });
-        });
+          })
+        })
 
-        break;
+        break
       case ActionTypes.ACTIONS_FETCH__SUCCESS:
       case ActionTypes.NOTIFICATION_CREATE_HANDLE:
         payload.actions.forEach((action) => {
-          Action.upsert(action);
-        });
+          sAction.upsert(action)
+        })
 
-        break;
+        break
       case ActionTypes.ACTION_CREATE_HANDLE:
       case ActionTypes.ACTION_UPDATE_HANDLE:
       case ActionTypes.COMMENT_ACTION_CREATE:
       case ActionTypes.COMMENT_ACTION_UPDATE__SUCCESS:
-        Action.upsert(payload.action);
+        sAction.upsert(payload.action)
 
-        break;
+        break
       case ActionTypes.ACTION_DELETE_HANDLE:
       case ActionTypes.COMMENT_ACTION_DELETE__SUCCESS: {
-        const actionModel = Action.withId(payload.action.id);
+        const actionModel = sAction.withId(payload.action.id)
 
         if (actionModel) {
-          actionModel.delete();
+          actionModel.delete()
         }
 
-        break;
+        break
       }
       case ActionTypes.COMMENT_ACTION_CREATE__SUCCESS:
-        Action.withId(payload.localId).delete();
-        Action.upsert(payload.action);
+        sAction.withId(payload.localId).delete()
+        sAction.upsert(payload.action)
 
-        break;
+        break
       case ActionTypes.COMMENT_ACTION_UPDATE:
-        Action.withId(payload.id).update({
+        sAction.withId(payload.id).update({
           data: payload.data,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.COMMENT_ACTION_DELETE:
-        Action.withId(payload.id).delete();
+        sAction.withId(payload.id).delete()
 
-        break;
+        break
       default:
     }
   }

@@ -1,3 +1,3 @@
-import DeleteStep from './DeleteStep';
+import DeleteStep from './DeleteStep'
 
-export default DeleteStep;
+export default DeleteStep

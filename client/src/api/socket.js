@@ -1,21 +1,20 @@
-import socketIOClient from 'socket.io-client';
-import sailsIOClient from 'sails.io.js';
+import socketIOClient from 'socket.io-client'
+import sailsIOClient from 'sails.io.js'
 
-import Config from '../constants/Config';
+import Config from '../constants/Config'
 
-const io = sailsIOClient(socketIOClient);
+const io = sailsIOClient(socketIOClient)
 
-io.sails.url = Config.SERVER_BASE_URL;
-io.sails.autoConnect = false;
-io.sails.reconnection = true;
-io.sails.useCORSRouteToGetCookie = false;
-io.sails.environment = process.env.NODE_ENV;
+io.sails.url = Config.SERVER_BASE_URL
+io.sails.autoConnect = false
+io.sails.reconnection = true
+io.sails.useCORSRouteToGetCookie = false
+io.sails.environment = process.env.NODE_ENV
 
-const { socket } = io;
+const { socket } = io
 
-socket.connect = socket._connect; // eslint-disable-line no-underscore-dangle
-
-['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].forEach((method) => {
+socket.connect = socket._connect // eslint-disable-line no-underscore-dangle
+;['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].forEach((method) => {
   socket[method.toLowerCase()] = (url, data, headers) =>
     new Promise((resolve, reject) => {
       socket.request(
@@ -27,13 +26,13 @@ socket.connect = socket._connect; // eslint-disable-line no-underscore-dangle
         },
         (_, { body, error }) => {
           if (error) {
-            reject(body);
+            reject(body)
           } else {
-            resolve(body);
+            resolve(body)
           }
         },
-      );
-    });
-});
+      )
+    })
+})
 
-export default socket;
+export default socket

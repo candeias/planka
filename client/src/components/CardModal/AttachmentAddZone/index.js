@@ -1,3 +1,3 @@
-import AttachmentAddZone from './AttachmentAddZone';
+import AttachmentAddZone from './AttachmentAddZone'
 
-export default AttachmentAddZone;
+export default AttachmentAddZone

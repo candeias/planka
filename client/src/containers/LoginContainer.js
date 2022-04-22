@@ -1,8 +1,8 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import { authenticate, clearAuthenticateError } from '../actions/entry';
-import Login from '../components/Login';
+import { authenticate, clearAuthenticateError } from '../actions/entry'
+import Login from '../components/Login'
 
 const mapStateToProps = ({
   ui: {
@@ -12,7 +12,7 @@ const mapStateToProps = ({
   defaultData,
   isSubmitting,
   error,
-});
+})
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch) =>
       onMessageDismiss: clearAuthenticateError,
     },
     dispatch,
-  );
+  )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -1,4 +1,4 @@
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 // eslint-disable-next-line import/prefer-default-export
 export const initializeCore = (
@@ -38,4 +38,4 @@ export const initializeCore = (
     actions,
     notifications,
   },
-});
+})

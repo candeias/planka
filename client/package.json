@@ -4,7 +4,8 @@
   "scripts": {
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext js,jsx src",
+    "lint": "eslint ./ --ignore-path .gitignore",
+    "lint:fix": "npm run lint -- --fix",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
@@ -20,57 +21,18 @@
       "last 1 safari version"
     ]
   },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "jest": true
-    },
-    "parser": "@babel/eslint-parser",
-    "parserOptions": {
-      "babelOptions": {
-        "presets": [
-          "airbnb"
-        ]
-      },
-      "requireConfigFile": false
-    },
-    "plugins": [
-      "prettier"
-    ],
-    "extends": [
-      "airbnb",
-      "airbnb/hooks",
-      "plugin:prettier/recommended"
-    ],
-    "rules": {
-      "import/no-extraneous-dependencies": [
-        "error",
-        {
-          "devDependencies": [
-            "src/setupTests.js",
-            "**/*.test.js"
-          ]
-        }
-      ],
-      "prettier/prettier": [
-        "error",
-        {
-          "printWidth": 100,
-          "singleQuote": true,
-          "trailingComma": "all"
-        }
-      ]
-    }
-  },
   "dependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.9.2",
     "date-fns": "^2.28.0",
     "dequal": "^2.0.2",
+    "enzyme": "^3.11.0",
     "history": "^4.10.1",
     "i18next": "^21.6.16",
     "i18next-browser-languagedetector": "^6.1.4",
     "initials": "^3.1.2",
+    "jest-enzyme": "^7.1.2",
     "lodash": "^4.17.20",
     "node-sass": "^7.0.1",
     "prop-types": "^15.8.1",
@@ -99,20 +61,26 @@
     "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
-    "babel-preset-airbnb": "^5.0.0",
+    "@imaginary-cloud/eslint-config-react": "^2.0.1",
+    "@imaginary-cloud/prettier-config": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
     "chai": "^4.3.6",
-    "enzyme": "^3.11.0",
-    "eslint": "^8.13.0",
+    "eslint": "^8.10.0",
     "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^26.1.1",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.4.0",
-    "jest-enzyme": "^7.1.2",
+    "eslint-plugin-react": "^7.29.3",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "2.6.2",
     "react-test-renderer": "^17.0.2"
-  }
+  },
+  "eslintConfig": {
+    "extends": "@imaginary-cloud/react"
+  },
+  "prettier": "@imaginary-cloud/prettier-config"
 }

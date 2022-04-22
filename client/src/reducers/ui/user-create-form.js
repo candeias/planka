@@ -1,4 +1,4 @@
-import ActionTypes from '../../constants/ActionTypes';
+import ActionTypes from '../../constants/ActionTypes'
 
 const initialState = {
   data: {
@@ -8,7 +8,7 @@ const initialState = {
   },
   isSubmitting: false,
   error: null,
-};
+}
 
 // eslint-disable-next-line default-param-last
 export default (state = initialState, { type, payload }) => {
@@ -21,21 +21,21 @@ export default (state = initialState, { type, payload }) => {
           ...payload.data,
         },
         isSubmitting: true,
-      };
+      }
     case ActionTypes.USER_CREATE__SUCCESS:
-      return initialState;
+      return initialState
     case ActionTypes.USER_CREATE__FAILURE:
       return {
         ...state,
         isSubmitting: false,
         error: payload.error,
-      };
+      }
     case ActionTypes.USER_CREATE_ERROR_CLEAR:
       return {
         ...state,
         error: null,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}

@@ -1,3 +1,3 @@
-import CardModal from './CardModal';
+import CardModal from './CardModal'
 
-export default CardModal;
+export default CardModal

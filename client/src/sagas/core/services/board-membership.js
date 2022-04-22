@@ -1,27 +1,27 @@
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects'
 
-import { goToProjectService } from './router';
-import request from '../request';
-import { fetchBoardByCurrentPathRequest } from '../requests';
+import { goToProjectService } from './router'
+import request from '../request'
+import { fetchBoardByCurrentPathRequest } from '../requests'
 import {
   boardMembershipByIdSelector,
   currentUserIdSelector,
   isCurrentUserManagerForCurrentProjectSelector,
   notificationsByCardIdSelector,
   pathSelector,
-} from '../../../selectors';
+} from '../../../selectors'
 import {
   createBoardMembership,
   deleteBoardMembership,
   handleBoardMembershipCreate,
   handleBoardMembershipDelete,
-} from '../../../actions';
-import api from '../../../api';
-import { createLocalId } from '../../../utils/local-id';
-import mergeRecords from '../../../utils/merge-records';
+} from '../../../actions'
+import api from '../../../api'
+import { createLocalId } from '../../../utils/local-id'
+import mergeRecords from '../../../utils/merge-records'
 
 export function* createBoardMembershipService(boardId, data) {
-  const localId = yield call(createLocalId);
+  const localId = yield call(createLocalId)
 
   yield put(
     createBoardMembership({
@@ -29,75 +29,95 @@ export function* createBoardMembershipService(boardId, data) {
       boardId,
       id: localId,
     }),
-  );
+  )
 
-  let boardMembership;
+  let boardMembership
   try {
-    ({ item: boardMembership } = yield call(request, api.createBoardMembership, boardId, data));
+    ;({ item: boardMembership } = yield call(
+      request,
+      api.createBoardMembership,
+      boardId,
+      data,
+    ))
   } catch (error) {
-    yield put(createBoardMembership.failure(localId, error));
-    return;
+    yield put(createBoardMembership.failure(localId, error))
+    return
   }
 
-  yield put(createBoardMembership.success(localId, boardMembership));
+  yield put(createBoardMembership.success(localId, boardMembership))
 }
 
 export function* createMembershipInCurrentBoardService(data) {
-  const { boardId } = yield select(pathSelector);
+  const { boardId } = yield select(pathSelector)
 
-  yield call(createBoardMembershipService, boardId, data);
+  yield call(createBoardMembershipService, boardId, data)
 }
 
 export function* handleBoardMembershipCreateService(boardMembership) {
-  const currentUserId = yield select(currentUserIdSelector);
-  const isCurrentUser = boardMembership.userId === currentUserId;
+  const currentUserId = yield select(currentUserIdSelector)
+  const isCurrentUser = boardMembership.userId === currentUserId
 
-  let user;
-  let project;
-  let board1;
-  let users1;
-  let users2;
-  let projectManagers;
-  let boards;
-  let boardMemberships1;
-  let boardMemberships2;
-  let labels;
-  let lists;
-  let cards;
-  let cardMemberships;
-  let cardLabels;
-  let tasks;
-  let attachments;
-  let notifications;
+  let user
+  let project
+  let board1
+  let users1
+  let users2
+  let projectManagers
+  let boards
+  let boardMemberships1
+  let boardMemberships2
+  let labels
+  let lists
+  let cards
+  let cardMemberships
+  let cardLabels
+  let tasks
+  let attachments
+  let notifications
 
   if (isCurrentUser) {
-    let board2;
+    let board2
     try {
-      ({ item: board2 } = yield call(request, api.getBoard, boardMembership.boardId));
+      ;({ item: board2 } = yield call(
+        request,
+        api.getBoard,
+        boardMembership.boardId,
+      ))
     } catch {
-      return;
+      return
     }
 
-    const { boardId } = yield select(pathSelector);
+    const { boardId } = yield select(pathSelector)
 
-    yield put(handleBoardMembershipCreate.fetchProject(board2.projectId, currentUserId, boardId));
+    yield put(
+      handleBoardMembershipCreate.fetchProject(
+        board2.projectId,
+        currentUserId,
+        boardId,
+      ),
+    )
 
     try {
-      ({
+      ;({
         item: project,
-        included: { users: users1, projectManagers, boards, boardMemberships: boardMemberships1 },
-      } = yield call(request, api.getProject, board2.projectId));
+        included: {
+          users: users1,
+          projectManagers,
+          boards,
+          boardMemberships: boardMemberships1,
+        },
+      } = yield call(request, api.getProject, board2.projectId))
     } catch {
-      return;
+      return
     }
 
-    let body;
+    let body
     try {
-      body = yield call(fetchBoardByCurrentPathRequest);
+      body = yield call(fetchBoardByCurrentPathRequest)
     } catch {} // eslint-disable-line no-empty
 
     if (body && body.project && body.project.id === board2.projectId) {
-      ({
+      ;({
         project,
         board: board1,
         users: users2,
@@ -109,17 +129,24 @@ export function* handleBoardMembershipCreateService(boardMembership) {
         cardLabels,
         tasks,
         attachments,
-      } = body);
+      } = body)
 
       if (body.card) {
-        notifications = yield select(notificationsByCardIdSelector, body.card.id);
+        notifications = yield select(
+          notificationsByCardIdSelector,
+          body.card.id,
+        )
       }
     }
   } else {
     try {
-      ({ item: user } = yield call(request, api.getUser, boardMembership.userId));
+      ;({ item: user } = yield call(
+        request,
+        api.getUser,
+        boardMembership.userId,
+      ))
     } catch {
-      return;
+      return
     }
   }
 
@@ -141,46 +168,60 @@ export function* handleBoardMembershipCreateService(boardMembership) {
       attachments,
       notifications,
     ),
-  );
+  )
 }
 
 export function* deleteBoardMembershipService(id) {
-  let boardMembership = yield select(boardMembershipByIdSelector, id);
+  let boardMembership = yield select(boardMembershipByIdSelector, id)
 
-  const currentUserId = yield select(currentUserIdSelector);
-  const { boardId, projectId } = yield select(pathSelector);
+  const currentUserId = yield select(currentUserIdSelector)
+  const { boardId, projectId } = yield select(pathSelector)
 
-  if (boardMembership.userId === currentUserId && boardMembership.boardId === boardId) {
-    const isCurrentUserManager = yield select(isCurrentUserManagerForCurrentProjectSelector);
+  if (
+    boardMembership.userId === currentUserId &&
+    boardMembership.boardId === boardId
+  ) {
+    const isCurrentUserManager = yield select(
+      isCurrentUserManagerForCurrentProjectSelector,
+    )
 
     if (!isCurrentUserManager) {
-      yield call(goToProjectService, projectId);
+      yield call(goToProjectService, projectId)
     }
   }
 
-  yield put(deleteBoardMembership(id));
+  yield put(deleteBoardMembership(id))
 
   try {
-    ({ item: boardMembership } = yield call(request, api.deleteBoardMembership, id));
+    ;({ item: boardMembership } = yield call(
+      request,
+      api.deleteBoardMembership,
+      id,
+    ))
   } catch (error) {
-    yield put(deleteBoardMembership.failure(id, error));
-    return;
+    yield put(deleteBoardMembership.failure(id, error))
+    return
   }
 
-  yield put(deleteBoardMembership.success(boardMembership));
+  yield put(deleteBoardMembership.success(boardMembership))
 }
 
 export function* handleBoardMembershipDeleteService(boardMembership) {
-  const currentUserId = yield select(currentUserIdSelector);
-  const { boardId, projectId } = yield select(pathSelector);
+  const currentUserId = yield select(currentUserIdSelector)
+  const { boardId, projectId } = yield select(pathSelector)
 
-  if (boardMembership.userId === currentUserId && boardMembership.boardId === boardId) {
-    const isCurrentUserManager = yield select(isCurrentUserManagerForCurrentProjectSelector);
+  if (
+    boardMembership.userId === currentUserId &&
+    boardMembership.boardId === boardId
+  ) {
+    const isCurrentUserManager = yield select(
+      isCurrentUserManagerForCurrentProjectSelector,
+    )
 
     if (!isCurrentUserManager) {
-      yield call(goToProjectService, projectId);
+      yield call(goToProjectService, projectId)
     }
   }
 
-  yield put(handleBoardMembershipDelete(boardMembership));
+  yield put(handleBoardMembershipDelete(boardMembership))
 }

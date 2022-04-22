@@ -1,4 +1,4 @@
-import { all, takeEvery } from 'redux-saga/effects';
+import { all, takeEvery } from 'redux-saga/effects'
 
 import {
   createTaskInCurrentCardService,
@@ -7,13 +7,14 @@ import {
   handleTaskDeleteService,
   handleTaskUpdateService,
   updateTaskService,
-} from '../services';
-import EntryActionTypes from '../../../constants/EntryActionTypes';
+} from '../services'
+import EntryActionTypes from '../../../constants/EntryActionTypes'
 
 export default function* taskWatchers() {
   yield all([
-    takeEvery(EntryActionTypes.TASK_IN_CURRENT_CARD_CREATE, ({ payload: { data } }) =>
-      createTaskInCurrentCardService(data),
+    takeEvery(
+      EntryActionTypes.TASK_IN_CURRENT_CARD_CREATE,
+      ({ payload: { data } }) => createTaskInCurrentCardService(data),
     ),
     takeEvery(EntryActionTypes.TASK_CREATE_HANDLE, ({ payload: { task } }) =>
       handleTaskCreateService(task),
@@ -24,9 +25,11 @@ export default function* taskWatchers() {
     takeEvery(EntryActionTypes.TASK_UPDATE_HANDLE, ({ payload: { task } }) =>
       handleTaskUpdateService(task),
     ),
-    takeEvery(EntryActionTypes.TASK_DELETE, ({ payload: { id } }) => deleteTaskService(id)),
+    takeEvery(EntryActionTypes.TASK_DELETE, ({ payload: { id } }) =>
+      deleteTaskService(id),
+    ),
     takeEvery(EntryActionTypes.TASK_DELETE_HANDLE, ({ payload: { task } }) =>
       handleTaskDeleteService(task),
     ),
-  ]);
+  ])
 }

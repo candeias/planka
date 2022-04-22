@@ -24,4 +24,4 @@ export default [
   'prism-light',
   'green-mist',
   'red-curtain',
-];
+]

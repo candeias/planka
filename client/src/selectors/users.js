@@ -1,11 +1,11 @@
-import { createSelector } from 'redux-orm';
+import { createSelector } from 'redux-orm'
 
-import orm from '../orm';
-import { currentUserIdSelector } from './user';
+import orm from '../orm'
+import { currentUserIdSelector } from './user'
 
 export const usersSelector = createSelector(orm, ({ User }) =>
   User.getOrderedUndeletedQuerySet().toRefArray(),
-);
+)
 
 export const usersExceptCurrentSelector = createSelector(
   orm,
@@ -16,4 +16,4 @@ export const usersExceptCurrentSelector = createSelector(
         id,
       })
       .toRefArray(),
-);
+)

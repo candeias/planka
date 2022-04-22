@@ -1,8 +1,12 @@
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects'
 
-import { goToBoardService, goToProjectService } from './router';
-import request from '../request';
-import { boardByIdSelector, nextBoardPositionSelector, pathSelector } from '../../../selectors';
+import { goToBoardService, goToProjectService } from './router'
+import request from '../request'
+import {
+  boardByIdSelector,
+  nextBoardPositionSelector,
+  pathSelector,
+} from '../../../selectors'
 import {
   createBoard,
   deleteBoard,
@@ -11,17 +15,17 @@ import {
   handleBoardDelete,
   handleBoardUpdate,
   updateBoard,
-} from '../../../actions';
-import api from '../../../api';
-import { createLocalId } from '../../../utils/local-id';
+} from '../../../actions'
+import api from '../../../api'
+import { createLocalId } from '../../../utils/local-id'
 
 export function* createBoardService(projectId, data) {
   const nextData = {
     ...data,
     position: yield select(nextBoardPositionSelector, projectId),
-  };
+  }
 
-  const localId = yield call(createLocalId);
+  const localId = yield call(createLocalId)
 
   yield put(
     createBoard({
@@ -29,52 +33,52 @@ export function* createBoardService(projectId, data) {
       projectId,
       id: localId,
     }),
-  );
+  )
 
-  let board;
-  let boardMemberships;
+  let board
+  let boardMemberships
 
   try {
-    ({
+    ;({
       item: board,
       included: { boardMemberships },
-    } = yield call(request, api.createBoard, projectId, nextData));
+    } = yield call(request, api.createBoard, projectId, nextData))
   } catch (error) {
-    yield put(createBoard.failure(localId, error));
-    return;
+    yield put(createBoard.failure(localId, error))
+    return
   }
 
-  yield put(createBoard.success(localId, board, boardMemberships));
-  yield call(goToBoardService, board.id);
+  yield put(createBoard.success(localId, board, boardMemberships))
+  yield call(goToBoardService, board.id)
 }
 
 export function* createBoardInCurrentProjectService(data) {
-  const { projectId } = yield select(pathSelector);
+  const { projectId } = yield select(pathSelector)
 
-  yield call(createBoardService, projectId, data);
+  yield call(createBoardService, projectId, data)
 }
 
 export function* handleBoardCreateService(board) {
-  yield put(handleBoardCreate(board));
+  yield put(handleBoardCreate(board))
 }
 
 export function* fetchBoardService(id) {
-  yield put(fetchBoard(id));
+  yield put(fetchBoard(id))
 
-  let board;
-  let users;
-  let projects;
-  let boardMemberships;
-  let labels;
-  let lists;
-  let cards;
-  let cardMemberships;
-  let cardLabels;
-  let tasks;
-  let attachments;
+  let board
+  let users
+  let projects
+  let boardMemberships
+  let labels
+  let lists
+  let cards
+  let cardMemberships
+  let cardLabels
+  let tasks
+  let attachments
 
   try {
-    ({
+    ;({
       item: board,
       included: {
         users,
@@ -88,10 +92,10 @@ export function* fetchBoardService(id) {
         tasks,
         attachments,
       },
-    } = yield call(request, api.getBoard, id));
+    } = yield call(request, api.getBoard, id))
   } catch (error) {
-    yield put(fetchBoard.failure(id, error));
-    return;
+    yield put(fetchBoard.failure(id, error))
+    return
   }
 
   yield put(
@@ -108,62 +112,62 @@ export function* fetchBoardService(id) {
       tasks,
       attachments,
     ),
-  );
+  )
 }
 
 export function* updateBoardService(id, data) {
-  yield put(updateBoard(id, data));
+  yield put(updateBoard(id, data))
 
-  let board;
+  let board
   try {
-    ({ item: board } = yield call(request, api.updateBoard, id, data));
+    ;({ item: board } = yield call(request, api.updateBoard, id, data))
   } catch (error) {
-    yield put(updateBoard.failure(id, error));
-    return;
+    yield put(updateBoard.failure(id, error))
+    return
   }
 
-  yield put(updateBoard.success(board));
+  yield put(updateBoard.success(board))
 }
 
 export function* handleBoardUpdateService(board) {
-  yield put(handleBoardUpdate(board));
+  yield put(handleBoardUpdate(board))
 }
 
 export function* moveBoardService(id, index) {
-  const { projectId } = yield select(boardByIdSelector, id);
-  const position = yield select(nextBoardPositionSelector, projectId, index, id);
+  const { projectId } = yield select(boardByIdSelector, id)
+  const position = yield select(nextBoardPositionSelector, projectId, index, id)
 
   yield call(updateBoardService, id, {
     position,
-  });
+  })
 }
 
 export function* deleteBoardService(id) {
-  const { boardId, projectId } = yield select(pathSelector);
+  const { boardId, projectId } = yield select(pathSelector)
 
   if (id === boardId) {
-    yield call(goToProjectService, projectId);
+    yield call(goToProjectService, projectId)
   }
 
-  yield put(deleteBoard(id));
+  yield put(deleteBoard(id))
 
-  let board;
+  let board
   try {
-    ({ item: board } = yield call(request, api.deleteBoard, id));
+    ;({ item: board } = yield call(request, api.deleteBoard, id))
   } catch (error) {
-    yield put(deleteBoard.failure(id, error));
-    return;
+    yield put(deleteBoard.failure(id, error))
+    return
   }
 
-  yield put(deleteBoard.success(board));
+  yield put(deleteBoard.success(board))
 }
 
 export function* handleBoardDeleteService(board) {
-  const { boardId, projectId } = yield select(pathSelector);
+  const { boardId, projectId } = yield select(pathSelector)
 
   if (board.id === boardId) {
-    yield call(goToProjectService, projectId);
+    yield call(goToProjectService, projectId)
   }
 
-  yield put(handleBoardDelete(board));
+  yield put(handleBoardDelete(board))
 }

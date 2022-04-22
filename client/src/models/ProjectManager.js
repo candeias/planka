@@ -1,9 +1,9 @@
-import { Model, attr, fk } from 'redux-orm';
+import { Model, attr, fk } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
-export default class extends Model {
-  static modelName = 'ProjectManager';
+export class ProjectManager extends Model {
+  static modelName = 'ProjectManager'
 
   static fields = {
     id: attr(),
@@ -17,67 +17,69 @@ export default class extends Model {
       as: 'user',
       relatedName: 'projectManagers',
     }),
-  };
+  }
 
   static reducer({ type, payload }, ProjectManager) {
     switch (type) {
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
-        ProjectManager.all().delete();
+        ProjectManager.all().delete()
 
         payload.projectManagers.forEach((projectManager) => {
-          ProjectManager.upsert(projectManager);
-        });
+          ProjectManager.upsert(projectManager)
+        })
 
-        break;
+        break
       case ActionTypes.CORE_INITIALIZE:
       case ActionTypes.PROJECT_CREATE__SUCCESS:
       case ActionTypes.PROJECT_CREATE_HANDLE:
         payload.projectManagers.forEach((projectManager) => {
-          ProjectManager.upsert(projectManager);
-        });
+          ProjectManager.upsert(projectManager)
+        })
 
-        break;
+        break
       case ActionTypes.PROJECT_MANAGER_CREATE:
-        ProjectManager.upsert(payload.projectManager);
+        ProjectManager.upsert(payload.projectManager)
 
-        break;
+        break
       case ActionTypes.PROJECT_MANAGER_CREATE__SUCCESS:
-        ProjectManager.withId(payload.localId).delete();
-        ProjectManager.upsert(payload.projectManager);
+        ProjectManager.withId(payload.localId).delete()
+        ProjectManager.upsert(payload.projectManager)
 
-        break;
+        break
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
-        ProjectManager.upsert(payload.projectManager);
+        ProjectManager.upsert(payload.projectManager)
 
         if (payload.projectManagers) {
           payload.projectManagers.forEach((projectManager) => {
-            ProjectManager.upsert(projectManager);
-          });
+            ProjectManager.upsert(projectManager)
+          })
         }
 
-        break;
+        break
       case ActionTypes.PROJECT_MANAGER_DELETE:
-        ProjectManager.withId(payload.id).delete();
+        ProjectManager.withId(payload.id).delete()
 
-        break;
+        break
       case ActionTypes.PROJECT_MANAGER_DELETE__SUCCESS:
       case ActionTypes.PROJECT_MANAGER_DELETE_HANDLE: {
-        const projectManagerModel = ProjectManager.withId(payload.projectManager.id);
+        const projectManagerModel = ProjectManager.withId(
+          payload.projectManager.id,
+        )
 
         if (projectManagerModel) {
-          projectManagerModel.delete();
+          projectManagerModel.delete()
         }
 
-        break;
+        break
       }
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.projectManagers) {
           payload.projectManagers.forEach((projectManager) => {
-            ProjectManager.upsert(projectManager);
-          });
+            ProjectManager.upsert(projectManager)
+          })
         }
 
-        break;
+        break
       default:
     }
   }

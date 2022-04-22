@@ -1,4 +1,4 @@
-import dateFns from 'date-fns/locale/ru';
+import dateFns from 'date-fns/locale/ru'
 
 export default {
   dateFns,
@@ -23,15 +23,24 @@ export default {
       all: 'Все',
       allChangesWillBeAutomaticallySavedAfterConnectionRestored:
         'Все изменения сохранятся автоматически,<br />как только подключение восстановится',
-      areYouSureYouWantToDeleteThisAttachment: 'Вы уверены, что хотите удалить это вложение?',
-      areYouSureYouWantToDeleteThisBoard: 'Вы уверены, что хотите удалить эту доску?',
-      areYouSureYouWantToDeleteThisCard: 'Вы уверены, что хотите удалить эту карточку?',
-      areYouSureYouWantToDeleteThisComment: 'Вы уверены, что хотите удалить этот комментарий?',
-      areYouSureYouWantToDeleteThisLabel: 'Вы уверены, что хотите удалить эту метку?',
-      areYouSureYouWantToDeleteThisList: 'Вы уверены, что хотите удалить этот список?',
-      areYouSureYouWantToDeleteThisProject: 'Вы уверены, что хотите удалить этот проект?',
-      areYouSureYouWantToDeleteThisTask: 'Вы уверены, что хотите удалить эту задачу?',
-      areYouSureYouWantToDeleteThisUser: 'Вы уверены, что хотите удалить этого пользователя?',
+      areYouSureYouWantToDeleteThisAttachment:
+        'Вы уверены, что хотите удалить это вложение?',
+      areYouSureYouWantToDeleteThisBoard:
+        'Вы уверены, что хотите удалить эту доску?',
+      areYouSureYouWantToDeleteThisCard:
+        'Вы уверены, что хотите удалить эту карточку?',
+      areYouSureYouWantToDeleteThisComment:
+        'Вы уверены, что хотите удалить этот комментарий?',
+      areYouSureYouWantToDeleteThisLabel:
+        'Вы уверены, что хотите удалить эту метку?',
+      areYouSureYouWantToDeleteThisList:
+        'Вы уверены, что хотите удалить этот список?',
+      areYouSureYouWantToDeleteThisProject:
+        'Вы уверены, что хотите удалить этот проект?',
+      areYouSureYouWantToDeleteThisTask:
+        'Вы уверены, что хотите удалить эту задачу?',
+      areYouSureYouWantToDeleteThisUser:
+        'Вы уверены, что хотите удалить этого пользователя?',
       areYouSureYouWantToRemoveThisMemberFromProject:
         'Вы уверены, что хотите удалить этого участника из проекта?',
       attachment: 'Вложение',
@@ -46,7 +55,8 @@ export default {
       connectionRestored: 'Соединение восстановлено',
       createBoard: 'Создание доски',
       createLabel: 'Создание метки',
-      createNewOneOrSelectExistingOne: 'Создайте новую или выберите<br />уже существующую',
+      createNewOneOrSelectExistingOne:
+        'Создайте новую или выберите<br />уже существующую',
       createProject: 'Создание проекта',
       createTextFile: 'Создание текстового файла',
       currentPassword: 'Текущий пароль',
@@ -119,15 +129,18 @@ export default {
       selectList: 'Выберите список',
       selectProject: 'Выберите проект',
       settings: 'Настройки',
-      subscribeToMyOwnCardsByDefault: 'По умолчанию подписаться на мои собственные карточки',
+      subscribeToMyOwnCardsByDefault:
+        'По умолчанию подписаться на мои собственные карточки',
       taskActions: 'Действия с задачей',
       tasks: 'Задачи',
       time: 'Время',
       timer: 'Таймер',
       title: 'Название',
       userActions_title: 'Действия с пользователем',
-      userAddedThisCardToList: '<0>{{user}}</0><1> добавил(а) эту карточку в {{list}}</1>',
-      userLeftNewCommentToCard: '{{user}} оставил(а) комментарий «{{comment}}» к <2>{{card}}</2>',
+      userAddedThisCardToList:
+        '<0>{{user}}</0><1> добавил(а) эту карточку в {{list}}</1>',
+      userLeftNewCommentToCard:
+        '{{user}} оставил(а) комментарий «{{comment}}» к <2>{{card}}</2>',
       userMovedCardFromListToList:
         '{{user}} переместил(а) <2>{{card}}</2> из {{fromList}} в {{toList}}',
       userMovedThisCardFromListToList:
@@ -196,4 +209,4 @@ export default {
       uploadNewImage: 'Загрузить новое изображение',
     },
   },
-};
+}

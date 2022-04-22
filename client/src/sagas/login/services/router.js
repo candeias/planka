@@ -1,22 +1,22 @@
-import { call, put, select } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+import { call, put, select } from 'redux-saga/effects'
+import { push } from 'connected-react-router'
 
-import { pathsMatchSelector } from '../../../selectors';
-import Paths from '../../../constants/Paths';
+import { pathsMatchSelector } from '../../../selectors'
+import Paths from '../../../constants/Paths'
 
 export function* goToLoginService() {
-  yield put(push(Paths.LOGIN));
+  yield put(push(Paths.LOGIN))
 }
 
 export function* goToRootService() {
-  yield put(push(Paths.ROOT));
+  yield put(push(Paths.ROOT))
 }
 
 export function* handleLocationChangeService() {
-  const pathsMatch = yield select(pathsMatchSelector);
+  const pathsMatch = yield select(pathsMatchSelector)
 
   if (!pathsMatch) {
-    return;
+    return
   }
 
   switch (pathsMatch.path) {
@@ -24,9 +24,9 @@ export function* handleLocationChangeService() {
     case Paths.PROJECTS:
     case Paths.BOARDS:
     case Paths.CARDS:
-      yield call(goToLoginService);
+      yield call(goToLoginService)
 
-      break;
+      break
     default:
   }
 }

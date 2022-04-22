@@ -1,3 +1,3 @@
-import UsersModal from './UsersModal';
+import UsersModal from './UsersModal'
 
-export default UsersModal;
+export default UsersModal

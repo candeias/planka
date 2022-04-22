@@ -1,7 +1,7 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
-import omit from 'lodash/omit';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
+import omit from 'lodash/omit'
 
 import {
   actionsForCurrentCardSelector,
@@ -16,7 +16,7 @@ import {
   projectsToListsForCurrentUserSelector,
   tasksForCurrentCardSelector,
   usersForCurrentCardSelector,
-} from '../selectors';
+} from '../selectors'
 import {
   addLabelToCurrentCard,
   addUserToCurrentCard,
@@ -40,17 +40,18 @@ import {
   updateCurrentCard,
   updateLabel,
   updateTask,
-} from '../actions/entry';
-import Paths from '../constants/Paths';
-import CardModal from '../components/CardModal';
+} from '../actions/entry'
+import Paths from '../constants/Paths'
+import CardModal from '../components/CardModal'
 
 const mapStateToProps = (state) => {
-  const { projectId } = pathSelector(state);
-  const allProjectsToLists = projectsToListsForCurrentUserSelector(state);
-  const isCurrentUserManager = isCurrentUserManagerForCurrentProjectSelector(state);
-  const allBoardMemberships = membershipsForCurrentBoardSelector(state);
-  const allLabels = labelsForCurrentBoardSelector(state);
-  const isCurrentUserMember = isCurrentUserMemberForCurrentBoardSelector(state);
+  const { projectId } = pathSelector(state)
+  const allProjectsToLists = projectsToListsForCurrentUserSelector(state)
+  const isCurrentUserManager =
+    isCurrentUserManagerForCurrentProjectSelector(state)
+  const allBoardMemberships = membershipsForCurrentBoardSelector(state)
+  const allLabels = labelsForCurrentBoardSelector(state)
+  const isCurrentUserMember = isCurrentUserMemberForCurrentBoardSelector(state)
 
   const {
     name,
@@ -62,13 +63,13 @@ const mapStateToProps = (state) => {
     isAllActionsFetched,
     boardId,
     listId,
-  } = currentCardSelector(state);
+  } = currentCardSelector(state)
 
-  const users = usersForCurrentCardSelector(state);
-  const labels = labelsForCurrentCardSelector(state);
-  const tasks = tasksForCurrentCardSelector(state);
-  const attachments = attachmentsForCurrentCardSelector(state);
-  const actions = actionsForCurrentCardSelector(state);
+  const users = usersForCurrentCardSelector(state)
+  const labels = labelsForCurrentCardSelector(state)
+  const tasks = tasksForCurrentCardSelector(state)
+  const attachments = attachmentsForCurrentCardSelector(state)
+  const actions = actionsForCurrentCardSelector(state)
 
   return {
     name,
@@ -91,8 +92,8 @@ const mapStateToProps = (state) => {
     allLabels,
     canEdit: isCurrentUserMember,
     canEditAllCommentActions: isCurrentUserManager,
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
@@ -122,12 +123,17 @@ const mapDispatchToProps = (dispatch) =>
       push,
     },
     dispatch,
-  );
+  )
 
 const mergeProps = (stateProps, dispatchProps) => ({
   ...stateProps,
   ...omit(dispatchProps, 'push'),
-  onClose: () => dispatchProps.push(Paths.BOARDS.replace(':id', stateProps.boardId)),
-});
+  onClose: () =>
+    dispatchProps.push(Paths.BOARDS.replace(':id', stateProps.boardId)),
+})
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(CardModal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps,
+)(CardModal)

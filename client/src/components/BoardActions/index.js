@@ -1,3 +1,3 @@
-import BoardActions from './BoardActions';
+import BoardActions from './BoardActions'
 
-export default BoardActions;
+export default BoardActions

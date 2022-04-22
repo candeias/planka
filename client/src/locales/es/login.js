@@ -17,4 +17,4 @@ export default {
       logIn: 'Iniciar sesión',
     },
   },
-};
+}

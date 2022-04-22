@@ -1,6 +1,6 @@
-import { Model, attr } from 'redux-orm';
+import { Model, attr } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 const DEFAULT_EMAIL_UPDATE_FORM = {
   data: {
@@ -9,7 +9,7 @@ const DEFAULT_EMAIL_UPDATE_FORM = {
   },
   isSubmitting: false,
   error: null,
-};
+}
 
 const DEFAULT_PASSWORD_UPDATE_FORM = {
   data: {
@@ -18,7 +18,7 @@ const DEFAULT_PASSWORD_UPDATE_FORM = {
   },
   isSubmitting: false,
   error: null,
-};
+}
 
 const DEFAULT_USERNAME_UPDATE_FORM = {
   data: {
@@ -27,10 +27,10 @@ const DEFAULT_USERNAME_UPDATE_FORM = {
   },
   isSubmitting: false,
   error: null,
-};
+}
 
-export default class extends Model {
-  static modelName = 'User';
+export class User extends Model {
+  static modelName = 'User'
 
   static fields = {
     id: attr(),
@@ -56,58 +56,58 @@ export default class extends Model {
     usernameUpdateForm: attr({
       getDefault: () => DEFAULT_USERNAME_UPDATE_FORM,
     }),
-  };
+  }
 
   static reducer({ type, payload }, User) {
     switch (type) {
       case ActionTypes.LOCATION_CHANGE_HANDLE:
         if (payload.users) {
           payload.users.forEach((user) => {
-            User.upsert(user);
-          });
+            User.upsert(user)
+          })
         }
 
-        break;
+        break
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
-        User.all().delete();
+        User.all().delete()
 
-        User.upsert(payload.user);
+        User.upsert(payload.user)
 
         payload.users.forEach((user) => {
-          User.upsert(user);
-        });
+          User.upsert(user)
+        })
 
-        break;
+        break
       case ActionTypes.CORE_INITIALIZE:
-        User.upsert(payload.user);
+        User.upsert(payload.user)
 
         payload.users.forEach((user) => {
-          User.upsert(user);
-        });
+          User.upsert(user)
+        })
 
-        break;
+        break
       case ActionTypes.USER_CREATE__SUCCESS:
       case ActionTypes.USER_CREATE_HANDLE:
       case ActionTypes.USER_UPDATE__SUCCESS:
-        User.upsert(payload.user);
+        User.upsert(payload.user)
 
-        break;
+        break
       case ActionTypes.USER_UPDATE:
-        User.withId(payload.id).update(payload.data);
+        User.withId(payload.id).update(payload.data)
 
-        break;
+        break
       case ActionTypes.USER_UPDATE_HANDLE:
-        User.upsert(payload.user);
+        User.upsert(payload.user)
 
         if (payload.users) {
           payload.users.forEach((user) => {
-            User.upsert(user);
-          });
+            User.upsert(user)
+          })
         }
 
-        break;
+        break
       case ActionTypes.USER_EMAIL_UPDATE: {
-        const userModel = User.withId(payload.id);
+        const userModel = User.withId(payload.id)
 
         userModel.update({
           emailUpdateForm: {
@@ -115,20 +115,20 @@ export default class extends Model {
             data: payload.data,
             isSubmitting: true,
           },
-        });
+        })
 
-        break;
+        break
       }
       case ActionTypes.USER_EMAIL_UPDATE__SUCCESS: {
         User.withId(payload.user.id).update({
           ...payload.user,
           emailUpdateForm: DEFAULT_EMAIL_UPDATE_FORM,
-        });
+        })
 
-        break;
+        break
       }
       case ActionTypes.USER_EMAIL_UPDATE__FAILURE: {
-        const userModel = User.withId(payload.id);
+        const userModel = User.withId(payload.id)
 
         userModel.update({
           emailUpdateForm: {
@@ -136,12 +136,12 @@ export default class extends Model {
             isSubmitting: false,
             error: payload.error,
           },
-        });
+        })
 
-        break;
+        break
       }
       case ActionTypes.USER_PASSWORD_UPDATE: {
-        const userModel = User.withId(payload.id);
+        const userModel = User.withId(payload.id)
 
         userModel.update({
           passwordUpdateForm: {
@@ -149,20 +149,20 @@ export default class extends Model {
             data: payload.data,
             isSubmitting: true,
           },
-        });
+        })
 
-        break;
+        break
       }
       case ActionTypes.USER_PASSWORD_UPDATE__SUCCESS: {
         User.withId(payload.user.id).update({
           ...payload.user,
           passwordUpdateForm: DEFAULT_PASSWORD_UPDATE_FORM,
-        });
+        })
 
-        break;
+        break
       }
       case ActionTypes.USER_PASSWORD_UPDATE__FAILURE: {
-        const userModel = User.withId(payload.id);
+        const userModel = User.withId(payload.id)
 
         userModel.update({
           passwordUpdateForm: {
@@ -170,12 +170,12 @@ export default class extends Model {
             isSubmitting: false,
             error: payload.error,
           },
-        });
+        })
 
-        break;
+        break
       }
       case ActionTypes.USER_USERNAME_UPDATE: {
-        const userModel = User.withId(payload.id);
+        const userModel = User.withId(payload.id)
 
         userModel.update({
           usernameUpdateForm: {
@@ -183,20 +183,20 @@ export default class extends Model {
             data: payload.data,
             isSubmitting: true,
           },
-        });
+        })
 
-        break;
+        break
       }
       case ActionTypes.USER_USERNAME_UPDATE__SUCCESS: {
         User.withId(payload.user.id).update({
           ...payload.user,
           usernameUpdateForm: DEFAULT_USERNAME_UPDATE_FORM,
-        });
+        })
 
-        break;
+        break
       }
       case ActionTypes.USER_USERNAME_UPDATE__FAILURE: {
-        const userModel = User.withId(payload.id);
+        const userModel = User.withId(payload.id)
 
         userModel.update({
           usernameUpdateForm: {
@@ -204,38 +204,38 @@ export default class extends Model {
             isSubmitting: false,
             error: payload.error,
           },
-        });
+        })
 
-        break;
+        break
       }
       case ActionTypes.USER_AVATAR_UPDATE:
         User.withId(payload.id).update({
           isAvatarUpdating: true,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.USER_AVATAR_UPDATE__SUCCESS:
         User.withId(payload.user.id).update({
           ...payload.user,
           isAvatarUpdating: false,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.USER_AVATAR_UPDATE__FAILURE:
         User.withId(payload.id).update({
           isAvatarUpdating: false,
-        });
+        })
 
-        break;
+        break
       case ActionTypes.USER_DELETE:
-        User.withId(payload.id).deleteWithRelated();
+        User.withId(payload.id).deleteWithRelated()
 
-        break;
+        break
       case ActionTypes.USER_DELETE__SUCCESS:
       case ActionTypes.USER_DELETE_HANDLE:
-        User.withId(payload.user.id).deleteWithRelated(payload.user);
+        User.withId(payload.user.id).deleteWithRelated(payload.user)
 
-        break;
+        break
       case ActionTypes.PROJECT_CREATE_HANDLE:
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_FETCH__SUCCESS:
@@ -243,10 +243,10 @@ export default class extends Model {
       case ActionTypes.ACTIONS_FETCH__SUCCESS:
       case ActionTypes.NOTIFICATION_CREATE_HANDLE:
         payload.users.forEach((user) => {
-          User.upsert(user);
-        });
+          User.upsert(user)
+        })
 
-        break;
+        break
       default:
     }
   }
@@ -254,15 +254,15 @@ export default class extends Model {
   static getOrderedUndeletedQuerySet() {
     return this.filter({
       deletedAt: null,
-    }).orderBy('id');
+    }).orderBy('id')
   }
 
   getOrderedProjectManagersQuerySet() {
-    return this.projectManagers.orderBy('id');
+    return this.projectManagers.orderBy('id')
   }
 
   getOrderedBoardMembershipsQuerySet() {
-    return this.boardMemberships.orderBy('id');
+    return this.boardMemberships.orderBy('id')
   }
 
   getOrderedUnreadNotificationsQuerySet() {
@@ -270,49 +270,49 @@ export default class extends Model {
       .filter({
         isRead: false,
       })
-      .orderBy('id', false);
+      .orderBy('id', false)
   }
 
   getOrderedAvailableProjectsModelArray() {
-    const projectIds = [];
+    const projectIds = []
 
     const projectModels = this.getOrderedProjectManagersQuerySet()
       .toModelArray()
       .map(({ project: projectModel }) => {
-        projectIds.push(projectModel.id);
+        projectIds.push(projectModel.id)
 
-        return projectModel;
-      });
+        return projectModel
+      })
 
     this.getOrderedBoardMembershipsQuerySet()
       .toModelArray()
       .forEach(({ board: { project: projectModel } }) => {
         if (projectIds.includes(projectModel.id)) {
-          return;
+          return
         }
 
-        projectIds.push(projectModel.id);
-        projectModels.push(projectModel);
-      });
+        projectIds.push(projectModel.id)
+        projectModels.push(projectModel)
+      })
 
-    return projectModels;
+    return projectModels
   }
 
   deleteRelated() {
-    this.projectManagers.delete();
+    this.projectManagers.delete()
 
     this.boardMemberships.toModelArray().forEach((boardMembershipModel) => {
-      boardMembershipModel.deleteWithRelated();
-    });
+      boardMembershipModel.deleteWithRelated()
+    })
   }
 
   deleteWithRelated(user) {
-    this.deleteRelated();
+    this.deleteRelated()
 
     this.update(
       user || {
         deletedAt: new Date(),
       },
-    );
+    )
   }
 }

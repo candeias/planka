@@ -1,4 +1,4 @@
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
 // eslint-disable-next-line import/prefer-default-export
 export const handleLocationChange = (
@@ -30,11 +30,11 @@ export const handleLocationChange = (
     attachments,
     notifications,
   },
-});
+})
 
 handleLocationChange.fetchBoard = (id) => ({
   type: ActionTypes.LOCATION_CHANGE_HANDLE__BOARD_FETCH,
   payload: {
     id,
   },
-});
+})

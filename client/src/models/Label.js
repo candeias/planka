@@ -1,9 +1,9 @@
-import { Model, attr, fk } from 'redux-orm';
+import { Model, attr, fk } from 'redux-orm'
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes'
 
-export default class extends Model {
-  static modelName = 'Label';
+export class Label extends Model {
+  static modelName = 'Label'
 
   static fields = {
     id: attr(),
@@ -14,7 +14,7 @@ export default class extends Model {
       as: 'board',
       relatedName: 'labels',
     }),
-  };
+  }
 
   static reducer({ type, payload }, Label) {
     switch (type) {
@@ -24,56 +24,56 @@ export default class extends Model {
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.labels) {
           payload.labels.forEach((label) => {
-            Label.upsert(label);
-          });
+            Label.upsert(label)
+          })
         }
 
-        break;
+        break
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
-        Label.all().delete();
+        Label.all().delete()
 
         if (payload.labels) {
           payload.labels.forEach((label) => {
-            Label.upsert(label);
-          });
+            Label.upsert(label)
+          })
         }
 
-        break;
+        break
       case ActionTypes.BOARD_FETCH__SUCCESS:
         payload.labels.forEach((label) => {
-          Label.upsert(label);
-        });
+          Label.upsert(label)
+        })
 
-        break;
+        break
       case ActionTypes.LABEL_CREATE:
       case ActionTypes.LABEL_CREATE_HANDLE:
       case ActionTypes.LABEL_UPDATE__SUCCESS:
       case ActionTypes.LABEL_UPDATE_HANDLE:
-        Label.upsert(payload.label);
+        Label.upsert(payload.label)
 
-        break;
+        break
       case ActionTypes.LABEL_CREATE__SUCCESS:
-        Label.withId(payload.localId).delete();
-        Label.upsert(payload.label);
+        Label.withId(payload.localId).delete()
+        Label.upsert(payload.label)
 
-        break;
+        break
       case ActionTypes.LABEL_UPDATE:
-        Label.withId(payload.id).update(payload.data);
+        Label.withId(payload.id).update(payload.data)
 
-        break;
+        break
       case ActionTypes.LABEL_DELETE:
-        Label.withId(payload.id).delete();
+        Label.withId(payload.id).delete()
 
-        break;
+        break
       case ActionTypes.LABEL_DELETE__SUCCESS:
       case ActionTypes.LABEL_DELETE_HANDLE: {
-        const labelModel = Label.withId(payload.label.id);
+        const labelModel = Label.withId(payload.label.id)
 
         if (labelModel) {
-          labelModel.delete();
+          labelModel.delete()
         }
 
-        break;
+        break
       }
       default:
     }
